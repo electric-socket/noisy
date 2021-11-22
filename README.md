@@ -1,7 +1,7 @@
 # Noisy
 Pascal program (or programs, I explain more below) to mark (or remove marks) on 
 source files so the compiler will give "shout outs" when used, i.e. the program
-will gbe very "noisy".
+will be very "noisy".
 
 What exactly does this mean, and why am I creating a program to do this? 
 * In large projects with dozens to hundreds to thousands or hundreds of 
