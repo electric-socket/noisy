@@ -1,11 +1,12 @@
 # Noisy
-Pascal program to mark (or remove marks) on source files so the compiler will give 
-"shout outs" when used.
+Pascal program (or programs, I explain more below) to mark (or remove marks) on 
+source files so the compiler will give "shout outs" when used, i.e. the program
+will gbe very "noisy".
 
 What exactly does this mean, and why am I creating a program to do this? 
 * In large projects with dozens to hundreds to thousands or hundreds of 
 thousands of source files -- hey, maybe projects aren't that big now, just wait, 
-they will be. Besides, as I said (or maybe will say later) that this project might 
+they will be. Besides, as I said (or rather will say later), this project might 
 be used on programs in languages other than Pascal ==  it can be difficult or even 
 impossible to determine which file was invoked where, especially when conditional 
 compilation is being used (such as a program being released for different operating 
