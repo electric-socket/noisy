@@ -1,0 +1,6 @@
+program noisy;
+
+
+begin
+end.
+
