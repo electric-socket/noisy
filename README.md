@@ -31,13 +31,17 @@ source code intact.
 * The original intended project is the source to the Free Pascal Compiler (FPC). This 
 medium-size (in terms of the number of lines of source code) compiler has about 250,000 
 lines, and the run-time libraries have tens- or hundreds-of-thousands of additional 
-lines. If someone (or potentially a group) is going to work on the program, possibly for
-writing a port (or fixing or enhancing an existing one) when they're not familiar with
-the code base), it's important to know what files are included in those files that are 
-used in all versions of the compiler  (the baseline of the compiler), as opposed to that 
-port of the compiler. It's intended as an understanding tool, either where you don't 
-know what files are being used in what order, or to refresh your memory as to the 
-particular order of inclusion. Can be useful if specific units are included for a 
+lines. 
+* This tool is not exclusively targeted at the Free Pasca Compiler, but at any medium or
+large application (or system) using many files, or which might have different editions 
+(like regular, premium and enterprise) or where there are different ports for other 
+architectures or operating systems. If someone (or potentially a group) is going to work 
+on an application, possibly for writing a port (or fixing or enhancing an existing one) 
+when they're not familiar with the code base), it's important to know what files are 
+included in those files that are used in all versions of the application (the baseline), 
+as opposed to a oarticular edition or port. It's intended as an understanding tool, either 
+where you don't know what files are being used in what order, or to refresh your memory as 
+to the particular order of inclusion. Can be useful if specific units are included for a 
 particular build.<br />
 It is possible this might have other uses, such as: 
 * Inserting other prefix code in files, such as boilerplate, copyright notices or 
