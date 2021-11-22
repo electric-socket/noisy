@@ -1,0 +1,45 @@
+The NOISY program – to mark pascal files
+
+
+1. if ON or nothing, set mode to ADD
+2. if OFF set mode to REMOVE
+3. if anything else
+	1. describe program and options
+	2. exit program
+4. Initialization
+	1. Set directory count to 1 
+	2. Set file count to 0
+	3. create list of file extensions to process (pas, .pp, .inc)
+5. A.	Get directory
+6. Collect each file in that directory
+7. If not a directory and not in extension list, discard
+8. Z.	If a directory, 
+	1. add 1 to number of directories
+	2. enter subdirectory
+	3. recursively perform A though Z
+	4. exit this directory, return to previous
+9. Loop For each file kept for processing
+	1. add 1 to file count
+	2. open file
+	3. allocate buffer
+	4. collect file into buffer
+	5. allocate output buffer of size of original plus size of insertion
+	6. if mode is ON
+		1. write output buffer {$IFDEF NOISY}{.NOISY today's date} 
+		2. write output buffer {“$INFO Compiling: “ and name of file “}” {.NOISY}
+		3. write output buffer {$ENDIF} {.NOISY END}
+	7. ELSE
+		1. set loop count to 0
+		2. repeat
+			1. if line contains {.NOISY END} exit loop without copying
+			2. If line contains {.NOISY} discard line
+			3. If neither, copy line to output buffer, add 1 to loop count
+			4. if loop count reaches 10, exit loop
+	8. Copy rest of file from input buffer into output buffer
+	9. write buffer
+	10. close output file
+	11. release output buffer
+	12. release input buffer
+10. Report number of files and directories processed
+
+
