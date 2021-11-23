@@ -51,15 +51,11 @@
         <Loaded Value="True"/>
       </Unit6>
     </Units>
-    <JumpHistory Count="2" HistoryIndex="1">
+    <JumpHistory Count="1">
       <Position1>
-        <Filename Value="scansort.inc"/>
-        <Caret TopLine="410"/>
-      </Position1>
-      <Position2>
         <Filename Value="SortExtensions.lpr"/>
         <Caret Line="11" Column="103"/>
-      </Position2>
+      </Position1>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

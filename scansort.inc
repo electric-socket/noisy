@@ -63,7 +63,7 @@ uses  SysUtils ;
 
 Const
 {$IFDEF Files}
-    Banner = 'ScanFiles - Scan a directory and all subs and list all files.');
+    Banner = 'ScanFiles - Scan a directory and all subs and list all files.';
 {$ENDIF}
 {$IFDEF Extensions}
     Banner = 'ScanExtensions - Scan a directory and all subs and list count of all file extensions.';
