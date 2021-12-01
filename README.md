@@ -65,7 +65,7 @@ other uses I haven't discovered yet, or that I'm not even aware of. We shall see
 ### Paul Robinson<br/>
 ### 28 November 2021 14:25 EST (-0500)
 
-----------------------------------------------
+----
 ## Additional points:
 * This is a work in progress. I will be addong things here as I build the application.
 * There will be fits and starts, where it oesn't seem like anything is getting done.
@@ -86,6 +86,6 @@ other uses I haven't discovered yet, or that I'm not even aware of. We shall see
 * Now that I hase a "plan of action" I can start with that. I'm busy with a side project tht will help we with the cross-refernce  program.
 
 More later as things change.   
-Paul Robinson   
-30 November 2021, 8:27 PM, EST (-0500)
-----------------------------------------------
+### Paul Robinson   
+### 30 November 2021, 20:27, EST (-0500)
+----
