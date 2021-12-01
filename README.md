@@ -62,5 +62,30 @@ Noisy will eventually be a suite of code processing tools, either to gather stat
 (where just information is collected}, or where changes to code are made. It might have 
 other uses I haven't discovered yet, or that I'm not even aware of. We shall see.
 
-Paul Robinson<br/>
-28 November 2021 14:25 EST (-0500)
+### Paul Robinson<br/>
+### 28 November 2021 14:25 EST (-0500)
+
+----------------------------------------------
+## Additional points:
+* This is a work in progress. I will be addong things here as I build the application.
+* There will be fits and starts, where it oesn't seem like anything is getting done.
+* Sometimes I will commit code foer things that are not related. The reason for this is I need three things:
+* A routine to find every file in a directory 
+* Potenitally that we ca pick which files to look at (filtr by extensio).
+* Read in file up to a maximum size, if larger than that, grab the file in chunks or memory map the file, if Windows (or other operating systems) ccan do that. 
+* I'm goinmg to try that as soon as I figure nout how to use memory mapping.of files.
+* If not available (or i ca;t figure it out) use the old method of reading up to the size of the buffer, process the part tht'sin the buffer, then fill it again, until there is no more file left to take.
+* I found out a coupole of things
+* Originally I used a trick thought bu by Vaily Tereshkov, the creator of XDPascal for Windows, in which you open the file, then read it all into a block of memory big enough to hold the entire file, then you trest the file as ohne big block of memry, accessed by a pointer to a character, then when you want the next character, you add one to the pointer, until you reach the end of the block.
+* Well, that's fine when you only have small to medium size programs - like the Stanford Pascal Compileer, whose single main program is about 1 megabyte. 
+* Well, this cases a problem that I never expected to see. One, I repat one file, that is the part of the Free Pascal Compiler, is mopre than _18 megabytes_ in size! 
+* Ain't no way am I going to :gulpread" a file that big.
+* Originally, when i was going to read a file, I'd open the file, see how big it is, then ask for that much memory.
+* I will use a better method. First, I'll grab as large a block as I reasonably can, to see how much I csn hsve. If it'sat least 2 megaytes, I'll return the excess to be used for any tables I need.
+* If not available, see how big a reasonable buffer is, and use tha if the file fits, and use it to read a chuink of the file at once.
+* Now that I hase a "plan of action" I can start with that. I'm busy with a side project tht will help we with the cross-refernce  program.
+
+More later as things change.   
+Paul Robinson   
+30 November 2021, 8:27 PM, EST (-0500)
+----------------------------------------------
