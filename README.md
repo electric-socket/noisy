@@ -54,11 +54,7 @@ carefully; if the compiler ignores everything after the last <b>END.</B> in a Pa
 source file (or some equivalent in other languages), such as a unit or main program, 
 then it has to insert the material before that line.)
 * Potentially used with other programming languages (and I've already hinted about 
-<<<<<<< HEAD
-this earlier.) C++ probably needs something like this to understand how those babies
-=======
 this earlier.) C++ probablu needs something like this to understand how those babies
->>>>>>> 56814691b595390dca9def17e1f5b6c2384d2ff9
 are constructed.
 * More will be added later as I have more information on where the project is going.
 
