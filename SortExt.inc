@@ -1,4 +1,4 @@
-// SortExt.inc
+// SortExt.inc  - Sort the extensions by popularity
 
 
       procedure sortExt;

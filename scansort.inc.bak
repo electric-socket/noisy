@@ -191,9 +191,6 @@ end;
         Result :=  Copy(Name, final,length(Name));
     end;
 
-// I'm moving this here as a duplicate until I know how it
-// failed, i.e. I btoke something...
-(*
 Procedure newScanDir(Const Prefix: UnicodeString;    // from where
                                                       //   are we searching?
                       Const Recurse,                  // Search that place
@@ -280,12 +277,11 @@ Procedure newScanDir(Const Prefix: UnicodeString;    // from where
     
 {$Ifdef Extensions}
 {$I storeExt.inc}
-
 {$ENDIF}
 
     // not dirs means don't put directories in the list, not to exclude
     // searching them if recurse is true
-    begin // newscandir
+    begin // scandir
 
        // If just listing directory(ies) and
        // not recursing, don't bother with
@@ -324,120 +320,6 @@ Procedure newScanDir(Const Prefix: UnicodeString;    // from where
         Until FindNext(rslt) <> 0;
         FindClose(rslt);
      end;
-*)
-Procedure ScanDir(Const Prefix: UnicodeString;
-                  Const Recurse,
-                        Dirs,
-                        Files: Boolean);
-var
-   Rslt: TUnicodeSearchRec;
-   E: UnicodeString;
-
-Function isDirectory: boolean;
-begin
-     result := (rslt.Attr And faDirectory) = faDirectory;
-end;
-
-Procedure GetFileItem;
-begin
-   If filechain = nil then  // first time
-   begin
-      new(FileChain);
-      FileChain^.prev := nil;
-      FileChain^.next := nil;
-      FileChainLast := FileChain;
-   end
-   else
-   begin
-      New(FileChainLast^.next);
-      FileChainLast^.next^.prev := FileChainLast;
-      FileChainLast := FileChainLast^.next;
-      FileChainLast^.Next := Nil;
-   end;
-end;
-
-// unsorted collection - simple one-way (downward)
-// linked list
-procedure CollectFile(Const prefix:  UnicodeString);
-BEGIN
-    GetFileItem;
-    with FileChainLast^ do
-    begin
-        Name := rslt.name;
-        Attr := rslt.attr;
-        Date:= rslt.TimeStamp;
-        fileChainLast^.rpath := prefix;
-        FQFN :=  Currentdir + SlashChar  + prefix +  Rslt.Name;
-        Date := rslt.TimeStamp;
-
-        if isDirectory then
-        begin  // only count directoriies
-            FQFN := FQFN+SlashChar;
-            Inc(SubDirCount);
-            Inc(TotalDirCount)
-        end
-        else
-        begin  // only count files
-            inc(FileCount);
-            inc(GlobalFileCount);
-            end;   // count total
-            Inc(TotalFileCount);
-
-    end;
-end;
-
-{$IFDEF Files}
-{$I StoreSize.inc}
-{$ENDIF}
-
-
-{$Ifdef Extensions}
-{$Include storeExt.inc}
-{$ENDIF}
-
-// not dirs means don't put directories in the list, not to exclude
-// searching them if recurse is true
-begin // scandir
-
-   // If just listing directory(ies) and
-   // not recursing, don't bother with
-   // the status indicator
-   if not dirs or recurse then
-      WRITE(GLOBALFILECOUNT:7,#8#8#8#8#8#8#8#8#8);
-    If FindFirst(Prefix+Path,Attr,rslt) = 0 Then
-    Repeat
-        If (rslt.Name = '.') Or  (rslt.Name = '..') Then
-            continue;  // skip parent and self
-        if isDirectory then
-        begin
-           if dirs then
-                    // collectfile will Count them
-               CollectFile(Prefix)
-           else
-               Inc(TotalDirCount);  // count directories even if not listing them
-           if recurse then
-           begin
-               ScanDir(prefix+rslt.Name+SlashChar,Recurse,Dirs,Files);
-
-           end;
-        end
-        else
-           if files then
-           begin
-               CollectFile(Prefix);
-{$IFDEF Extensions}
-               // If not collecting extensions
-               // then skip this
-                 E := LowerCase(GetExtension(rslt.Name)); // so all extensions are the same
-                 StoreExt;
-{$ENDIF}
-           end;
-
-    Until FindNext(rslt) <> 0;
-    FindClose(rslt);
- end;
-
-
 
 {$IFDEF Extensions}
 {$I SortExt.inc}

@@ -5,6 +5,7 @@
      Const
          Margin = 78;
      var
+        D: AnsiString;
         F: UnicodeString;
         p: filesP;
         N: byte;
@@ -17,6 +18,7 @@
          repeat
              write('  ');
              C :=' ';
+             D := FormatDateTime( DateFormatChars, P^.Date )+' ';
              if show = showName then
                F :=P^.Name
              else if show=ShowMedium then
@@ -39,7 +41,8 @@
                  end;
              end
              else
-                write('    ');;
+                write('    ');
+             If ShowDate then write(D);
              write(c, F, c,' ');
              if ispacked then
                  N := N+Length(P^.Name)+3
