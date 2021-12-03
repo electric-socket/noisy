@@ -5,18 +5,22 @@
      Const
          Margin = 78;
      var
+        ListCount: Int64;
         D: AnsiString;
         F: UnicodeString;
         p: filesP;
-        N: byte;
+        LineWidth: byte;
         c: char;
      begin
          if filechain = NIL then
            exit;
          P := filechain;
-         N :=0;
+         LineWidth :=0;
+         ListCount := 0;
+
          repeat
-             write('  ');
+             inc(ListCount);
+             write('  ',ListCount:5,' ');
              C :=' ';
              D := FormatDateTime( DateFormatChars, P^.Date )+' ';
              if show = showName then
@@ -34,10 +38,10 @@
                 C:='"';             // put it in quotes
              if ispacked then
              begin
-                 if N+Length(P^.Name)>margin then
+                 if LineWidth+Length(P^.Name)>margin then
                  begin
                     writeln;
-                    n := 0;
+                    LineWidth := 0;
                  end;
              end
              else
@@ -45,13 +49,13 @@
              If ShowDate then write(D);
              write(c, F, c,' ');
              if ispacked then
-                 N := N+Length(P^.Name)+3
+                 LineWidth := LineWidth+Length(P^.Name)+3
                else
                   writeln;
 
             P := P^.Next;
           until P = nil;
-          if n>0 then
+          if LineWidth>0 then
             writeln;
      end;
 

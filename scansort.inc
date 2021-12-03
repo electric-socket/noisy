@@ -368,7 +368,8 @@ BEGIN
         Date:= rslt.TimeStamp;
         fileChainLast^.rpath := prefix;
         FQFN :=  Currentdir + SlashChar  + prefix +  Rslt.Name;
-        Date := rslt.TimeStamp;
+        if rslt.size >Maxsize then
+            Maxsize := rslt.size;
 
         if isDirectory then
         begin  // only count directoriies
