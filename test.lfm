@@ -1,0 +1,42 @@
+object Form1: TForm1
+  Left = 796
+  Height = 240
+  Top = 267
+  Width = 473
+  Caption = 'Form1'
+  ClientHeight = 240
+  ClientWidth = 473
+  OnClose = FormClose
+  OnCreate = FormCreate
+  LCLVersion = '2.0.12.0'
+  object Label1: TLabel
+    Left = 8
+    Height = 50
+    Top = 2
+    Width = 215
+    Caption = 'Test Program'
+    Font.Height = 50
+    ParentColor = False
+    ParentFont = False
+  end
+  object Label2: TLabel
+    Left = 10
+    Height = 108
+    Top = 58
+    Width = 469
+    Caption = 'This value should be zero. '#13#10'But it is actually..................'
+    Font.Height = -40
+    ParentColor = False
+    ParentFont = False
+  end
+  object LblItem: TLabel
+    Left = 18
+    Height = 71
+    Top = 173
+    Width = 93
+    Caption = 'XXX'
+    Font.Height = -53
+    ParentColor = False
+    ParentFont = False
+  end
+end

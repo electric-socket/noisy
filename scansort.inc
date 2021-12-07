@@ -27,10 +27,23 @@
   Author: Paul Robinson
 
   Comments:
+    2021-12-03 This code does two things, First, it scans a directory
+               and all subdirectories for files.
+
+               Now, depending on which program invoked it, it
+               will do one of two things:
+               For Scanfiles, it thenn counts and displays all files
+                   thjat it fou7nd.
+               For SortExtensions, it sorts, by usage, all extensions
+                   that it finds, then counts how many it found, in order
+                   from most popular to least popular, then if more than
+                   one extension has that many uses, it lists all the
+                   extesions that do.
+
     2021-11-21:  I set both programs aside for so long I've
     forgotten exactly what it does...
 
-    Was not using source code control (my bad, probably not
+    Was not using source code control (my bad), probably not
     a good idea, but I didn't think - an unfortunatley all 
     too common practice -- that this code would be of much 
     importance or really have a lot of use. Then I got an 
@@ -80,7 +93,6 @@ type
       TheFiles =   Record
         Prev,           // only used if double-linked list is used
         Next:   FilesP;
-        FileCount,   // files I have
         SubDirCount:Integer;  // subdirectories if this is one
         Attr: Integer;
         Size: Int64;
@@ -144,8 +156,8 @@ var
       Rslt: TUnicodeSearchRec;
 
 
-      Maxsize: Int64;
-      SizeCount: Int64;
+      Maxsize: Int64 = 0;
+      SizeCount: Int64 = 0;
       SizeOnly: boolean = FALSE;
       ShowDate: boolean = FALSE;
 
@@ -243,16 +255,13 @@ Procedure newScanDir(Const Prefix: UnicodeString;    // from where
                     Inc(SubDirCount);
                     Inc(TotalDirCount)
                 end
-                else
-                begin  // only count files
-                    inc(FileCount);
-                    inc(GlobalFileCount);
-                end;   // count total
+                else // only count files
+                    inc(GlobalFileCount);   // count total
            END;  // WITH
         END;  // sizeonly test
         Inc(TotalFileCount); // all entriew found (files and folders)
                              // except "." and ".." in each directory
-        writeln('** ',totalfilecount,' ',rslt.name);
+
     end;
 
 
@@ -363,11 +372,13 @@ BEGIN
     GetFileItem;
     with FileChainLast^ do
     begin
-        Name := rslt.name;
-        Attr := rslt.attr;
-        Date:= rslt.TimeStamp;
-        fileChainLast^.rpath := prefix;
-        FQFN :=  Currentdir + SlashChar  + prefix +  Rslt.Name;
+        Name  := rslt.name;
+        Attr  := rslt.attr;
+        Date  := rslt.TimeStamp;
+        Size  := rslt.size;
+        rpath := prefix;
+        FQFN  := Currentdir + SlashChar  + prefix +  Rslt.Name;
+        Inc(TotalFileCount);
         if rslt.size >Maxsize then
             Maxsize := rslt.size;
 
@@ -377,13 +388,6 @@ BEGIN
             Inc(SubDirCount);
             Inc(TotalDirCount)
         end
-        else
-        begin  // only count files
-            inc(FileCount);
-            inc(GlobalFileCount);
-            end;   // count total
-            Inc(TotalFileCount);
-
     end;
 end;
 
@@ -417,15 +421,14 @@ begin // scandir
            else
                Inc(TotalDirCount);  // count directories even if not listing them
            if recurse then
-           begin
-               ScanDir(prefix+rslt.Name+SlashChar,Recurse,Dirs,Files);
-
-           end;
+               ScanDir(prefix+rslt.Name+SlashChar,TRUE,Dirs,Files);
         end
-        else
+        else    // NOT a directory
            if files then
            begin
                CollectFile(Prefix);
+               inc(GlobalFileCount);
+
 {$IFDEF Extensions}
                // If not collecting extensions
                // then skip this
@@ -460,6 +463,9 @@ begin // scandir
 
      begin
         Writeln('. Total extensions found: ',TotalExt);
+        // NOTE: Since ascending is a constant,
+        // one of these lines will get a "dead code walking"
+        // message, i.e. Unreachable Code warninhg
         if Ascending then
             SortMoveP := SortTop
         else
@@ -499,6 +505,9 @@ begin // scandir
               CP := CP^.Next;
            end;
            writeln;
+           // NOTE: Since ascending is a constant,
+           // one of these lines will get a "dead code walking"
+           // message, i.e. Unreachable Code warninhg
            if Ascending then
               SortMoveP := SortMoveP^.next
             else
@@ -532,6 +541,7 @@ begin // scandir
 
 {$IFDEF Extensions}       
        TotalExt := 0;
+{
        Write('For Analysis, the ',
              'RSLT record size is ',
              SizeOf(Rslt),' bytes. ');
@@ -539,8 +549,9 @@ begin // scandir
              ' bytes, Extension record is ',
              Sizeof(Extension));
        Writeln('Sort record is ',SizeOf(SortedExt),
-              ' bytes, and Count record is',
-               SizeOf(ExtCount),' bytes.');
+              ' bytes, and Count record is ',
+ ['{8AA0331B-F305-48E9-A2E6-C8AE339FE1ED}']              SizeOf(ExtCount),' bytes.');
+       }
 {$ENDIF}
         Writeln(Banner);
         repeat
@@ -548,7 +559,8 @@ begin // scandir
             TotalDirCount :=0;
             Writeln('Current Directory is ',CurrentDir);
 
-            scandir('', false,true,false);  // collect only directories when starting
+            scandir('', false,true,false);  // collect only directories
+                                            // when starting
 
             WRITELN;
             Writeln('Available subdirectories ',TotalDirCount,':');
@@ -579,6 +591,7 @@ begin // scandir
 
         writeln('Scan of ',CurrentDir);
         GlobalFileCount := 0;
+        TotalFileCount := 0;
 {$IFDEF Extensions}  
         scandir( Currentdir+SlashChar, true,false,true);
 {$ENDIF}          
@@ -589,10 +602,14 @@ begin // scandir
         write('PRESS RETURN: '); READLN;
          printChain(False,ShowMedium);
 {$ENDIF}       
-{$IFDEF Extensions}        
+{$IFDEF Extensions}
+//  SortExt will write something directly after this
+//  that starts with a comma, so don't use WRITELN or
+//  add a period, unless you change it too.
         Write(' ',Comma(GlobalFileCount),' files');
         SortExt;
  //       DoubleCheck;
+
          printext;
        // dumpExt;
 {$ENDIF}       

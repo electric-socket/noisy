@@ -8,8 +8,8 @@
       <Unit0>
         <Filename Value="SortExtensions.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos Y="11"/>
-        <UsageCount Value="22"/>
+        <CursorPos X="13" Y="12"/>
+        <UsageCount Value="28"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -22,40 +22,160 @@
         <Filename Value="scansort.inc"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos Y="2"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="445"/>
+        <CursorPos X="24" Y="455"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="StoreExt.inc"/>
         <EditorIndex Value="5"/>
-        <UsageCount Value="10"/>
+        <CursorPos X="35" Y="14"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="SortExt.inc"/>
         <EditorIndex Value="4"/>
-        <UsageCount Value="10"/>
+        <TopLine Value="19"/>
+        <CursorPos X="20" Y="36"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="freefiles.inc"/>
         <EditorIndex Value="3"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="printchain.inc"/>
         <EditorIndex Value="2"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit6>
     </Units>
-    <JumpHistory Count="1">
+    <JumpHistory Count="30" HistoryIndex="25">
       <Position1>
-        <Filename Value="SortExtensions.lpr"/>
-        <Caret Line="11" Column="103"/>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="604" Column="16" TopLine="591"/>
       </Position1>
+      <Position2>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="441" Column="27" TopLine="415"/>
+      </Position2>
+      <Position3>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="396" Column="17" TopLine="370"/>
+      </Position3>
+      <Position4>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="93" Column="15" TopLine="76"/>
+      </Position4>
+      <Position5>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="562" Column="44" TopLine="526"/>
+      </Position5>
+      <Position6>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="87" Column="13" TopLine="68"/>
+      </Position6>
+      <Position7>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="143" Column="22" TopLine="122"/>
+      </Position7>
+      <Position8>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="261" Column="34" TopLine="242"/>
+      </Position8>
+      <Position9>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="95" Column="24" TopLine="77"/>
+      </Position9>
+      <Position10>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="142" Column="22" TopLine="110"/>
+      </Position10>
+      <Position11>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="143" Column="21" TopLine="111"/>
+      </Position11>
+      <Position12>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="259" Column="42" TopLine="228"/>
+      </Position12>
+      <Position13>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="390" Column="33" TopLine="360"/>
+      </Position13>
+      <Position14>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="607" Column="86" TopLine="580"/>
+      </Position14>
+      <Position15>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="378" Column="13" TopLine="360"/>
+      </Position15>
+      <Position16>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="434" TopLine="416"/>
+      </Position16>
+      <Position17>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="438" Column="20" TopLine="419"/>
+      </Position17>
+      <Position18>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="436" Column="26" TopLine="404"/>
+      </Position18>
+      <Position19>
+        <Filename Value="StoreExt.inc"/>
+        <Caret Line="5" Column="23"/>
+      </Position19>
+      <Position20>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="436" Column="26" TopLine="404"/>
+      </Position20>
+      <Position21>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="140" Column="13" TopLine="145"/>
+      </Position21>
+      <Position22>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="606" Column="16" TopLine="573"/>
+      </Position22>
+      <Position23>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="554" Column="44" TopLine="516"/>
+      </Position23>
+      <Position24>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="9" Column="2"/>
+      </Position24>
+      <Position25>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="265" Column="9" TopLine="270"/>
+      </Position25>
+      <Position26>
+        <Filename Value="StoreExt.inc"/>
+        <Caret Line="5"/>
+      </Position26>
+      <Position27>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="455" Column="24" TopLine="446"/>
+      </Position27>
+      <Position28>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="610" Column="16" TopLine="592"/>
+      </Position28>
+      <Position29>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="152" Column="17" TopLine="131"/>
+      </Position29>
+      <Position30>
+        <Filename Value="scansort.inc"/>
+        <Caret Line="472" Column="26" TopLine="453"/>
+      </Position30>
     </JumpHistory>
     <RunParams>
       <FormatVersion Value="2"/>

@@ -4,6 +4,16 @@
 // tries to open, then if successful, reads the entire file
 // into memory
 
+// NOTE: This will only be expected to work if files are smaller
+//        than the amount of memory you can axqyure. otherwuse you
+//       need to use a buffer and blockread the file up to that
+//       memory amount, then once exhausted, read another block,
+//       until the amount read is smaller than the buffer. it
+//       depends on how much memory you can acquire, possibly
+//       asllocating 100-500K depending on how hard it is to
+//       get memory, then buffer as needed. Or the customary
+//       size of most files you deal with.
+
 procedure InitializeScanner(const Name: TString);
 var
   F: TInFile;

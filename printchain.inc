@@ -5,18 +5,19 @@
      Const
          Margin = 78;
      var
-        ListCount: Int64;
+
         D: AnsiString;
         F: UnicodeString;
         p: filesP;
         LineWidth: byte;
         c: char;
+        ListCount: Int64;
      begin
          if filechain = NIL then
            exit;
          P := filechain;
          LineWidth :=0;
-         ListCount := 0;
+         Listcount :=0;
 
          repeat
              inc(ListCount);

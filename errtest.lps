@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <PathDelim Value="\"/>
+    <Version Value="12"/>
+    <BuildModes Active="Default"/>
+    <Units Count="2">
+      <Unit0>
+        <Filename Value="errtest.pas"/>
+        <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="104"/>
+        <CursorPos Y="92"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="noisy.pas"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="185"/>
+        <CursorPos X="39" Y="217"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit1>
+    </Units>
+    <JumpHistory Count="6" HistoryIndex="5">
+      <Position1>
+        <Filename Value="errtest.pas"/>
+      </Position1>
+      <Position2>
+        <Filename Value="errtest.pas"/>
+        <Caret Line="29" TopLine="5"/>
+      </Position2>
+      <Position3>
+        <Filename Value="errtest.pas"/>
+        <Caret Line="43" TopLine="5"/>
+      </Position3>
+      <Position4>
+        <Filename Value="errtest.pas"/>
+        <Caret Line="15"/>
+      </Position4>
+      <Position5>
+        <Filename Value="errtest.pas"/>
+        <Caret Line="67" Column="38" TopLine="60"/>
+      </Position5>
+      <Position6>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="217" Column="39" TopLine="185"/>
+      </Position6>
+    </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes ActiveMode=""/>
+    </RunParams>
+  </ProjectSession>
+</CONFIG>
