@@ -132,38 +132,38 @@ type
       showtype = (ShowInvalid, ShowName, ShowMedium, ShowFQFN);
 
 var
-      f: text;
-      totalext: integer = 0;
-      CurrentDir,
-      OriginalDir,
-      Path:   UnicodeString;
-      Attr,
-      TotalDirCount,
-      GlobalFileCount,
+      f: text;                     // if writing to file
+      totalext: integer = 0;       // number of extensions found
+      CurrentDir,                  // Current directory searching
+      OriginalDir,                 // original directory when started
+      Path:   UnicodeString;       // path to search
+      Attr,                        // file attributes
+      TotalDirCount,               // number of files or directories found
+      GlobalFileCount,             // no. files and directories
       TotalFileCount:Integer;
-      D: TDatetime;
-      FileChain,
-      FileChainLast: FilesP;
+      D: TDatetime;                // for date/time
+      FileChain,                   // Linked list of files,
+                                   //  " lowest entry if sorted
+      FileChainLast: FilesP;       //  " highest entry if sorted
 
-      Ext,
-      ExtLast: ExtP;
-      SortMoveP,
-      SortTop,
-      SortBottom: ExtSortP;
-      Sizes,
-      SizeTop: SizeP;
+      Ext,                         // Extensions list, most to least used
+      ExtLast: ExtP;               //       "           least to most used
+      SortMoveP,                   // Extension Sort temp
+      SortTop,                     //   " most ised to least used
+      SortBottom: ExtSortP;        //   " least used to most used
 
-      Rslt: TUnicodeSearchRec;
-
-
-      Maxsize: Int64 = 0;
-      SizeCount: Int64 = 0;
-      SizeOnly: boolean = FALSE;
-      ShowDate: boolean = FALSE;
+      Rslt: TUnicodeSearchRec;     // collect dir search info one file
 
 
+      Maxsize: Int64 = 0;           // largest file found
+      SizeOnly: boolean = FALSE;    // sort by and show file sizes
+      SizeDown: boolean = FALSE;    // true to sort descending,
+                                    // false for ascending if sorting
+      ShowDate: boolean = FALSE;    // show file dates
 
-      Function Comma(K:Int64):string;
+
+
+Function Comma(K:Int64):string;
 var
    i:integer;
    s: string;
@@ -342,6 +342,9 @@ var
    Rslt: TUnicodeSearchRec;
    E: UnicodeString;
 
+
+
+
 Function isDirectory: boolean;
 begin
      result := (rslt.Attr And faDirectory) = faDirectory;
@@ -392,7 +395,7 @@ BEGIN
 end;
 
 {$IFDEF Files}
-{$I StoreSize.inc}
+{$I CollectSize.inc}
 {$ENDIF}
 
 
@@ -426,7 +429,10 @@ begin // scandir
         else    // NOT a directory
            if files then
            begin
-               CollectFile(Prefix);
+               If SizeOnly then
+                  CollectSize(Prefix)
+               else
+                  CollectFile(Prefix);
                inc(GlobalFileCount);
 
 {$IFDEF Extensions}
@@ -539,7 +545,7 @@ begin // scandir
        path := '*';
        attr := faAnyFile;
 
-{$IFDEF Extensions}       
+{$IFDEF Extensions}
        TotalExt := 0;
 {
        Write('For Analysis, the ',
@@ -550,8 +556,8 @@ begin // scandir
              Sizeof(Extension));
        Writeln('Sort record is ',SizeOf(SortedExt),
               ' bytes, and Count record is ',
- ['{8AA0331B-F305-48E9-A2E6-C8AE339FE1ED}']              SizeOf(ExtCount),' bytes.');
-       }
+            SizeOf(ExtCount),' bytes.');
+ }
 {$ENDIF}
         Writeln(Banner);
         repeat
@@ -569,7 +575,8 @@ begin // scandir
             FreeFilesNext ;
             Write('Enter new path, : to exit, ');
 {$IFDEF Files}
-            Write(':: to just list sizes, ');
+            Write('::+ to list by sizes, low to high, ');
+            Write('::- to list by sizes, high to low, ');
             Write('> to show files from here with date and time, ');
 {$ENDIF}
             writeln;
@@ -577,8 +584,24 @@ begin // scandir
             readln(NewPath);
             if newpath=':' then halt;
 {$IFDEF Files}
-            if newpath='>'  then begin ShowDate := TRUE; newpath :=''; END;
-            if newpath='::' then begin SizeOnly := TRUE; newpath :=''; END;
+            if newpath='>'  then
+            begin
+                ShowDate := TRUE;
+                newpath :='';
+            END;
+            if newpath='::+' then
+            begin
+                SizeOnly := TRUE;
+                SizeDown := TRUE;
+                newpath :='';
+            END;
+            if newpath='::-' then
+            begin
+                SizeOnly := TRUE;
+                SizeDown := FALSE;
+                newpath :='';
+            END;
+
 {$ENDIF}
             if newpath <> '' then
             begin
@@ -600,6 +623,9 @@ begin // scandir
         Writeln(Comma(GlobalFileCount),' files. ',
                ' Largest file is ',Comma(maxsize),' bytes');
         write('PRESS RETURN: '); READLN;
+
+           // list the table
+
          printChain(False,ShowMedium);
 {$ENDIF}       
 {$IFDEF Extensions}

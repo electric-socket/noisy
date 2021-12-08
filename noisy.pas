@@ -69,7 +69,7 @@ type
          OutPtr: PCharacter;      //  for input and output files
          Ch, Ch2,                 // the characters being read
          OutCh: Char;             //  and written
-         Line,                    // Line number in input file
+         LineNumber,               // Line number in input file
          LinePosition: integer;   // poition on line
          Free,                    // is this buffer in use?
          isBlocked,               // was the buffer space smaller than the file?
@@ -108,6 +108,7 @@ type
 
 
 var
+  F: Text;
 
   Buffer: Array[1..Buffercount] of TBuffer;
 //  StartTime,
@@ -116,10 +117,11 @@ var
   StartTime,
   EndTime: SystemTime;
 
-  AdviceMessage,
+  FN, Line,
   TimeString1,
   TimeString: String;
   H,M,S,MS,
+  FM, IR, LineCount,
   ProcFuncCount,
   TotalData: Integer;
   CompCount:Double;
@@ -227,6 +229,23 @@ begin
 
     // Check command lines and any options
 
+
+    Writeln('Current directory ',GetCurrentDir);
+
+     FM := filemode;
+     FileMode := 0; // force read-only in case file is read only
+     repeat
+         write('Enter file name: ');
+         readln(fn);
+         assign(F,fn);
+         {$I-} reset(F); {$I+}
+         IR := IOResult;
+         if IR = 0 then break;
+         writeln('Error ',IR);
+     until false;
+
+     StartTime.Year :=0;
+     Linecount :=0;
      GetLocalTime(StartTime);
       TimeString := Days[StartTime.dayOfWeek]+' '+Months[StartTime.month]+
                   ' '+IntToStr(StartTime.day)+', '+IntToStr(StartTime.year)+
@@ -236,9 +255,21 @@ begin
 
        // This is where the program starts performing
 
-       writeln;
+       While not eof(F) do
+       begin
+          Readln(F,line);
+          inc(linecount);
+          // something else
+
+       end;
+
+       close(F);
+       writeln(Linecount,' lines');
+
+(*       writeln;
        write('Wait a while, then press Enter: ');
        readln;
+*)
        GetLocalTime(EndTime);
        TimeString :=  Days[EndTime.dayOfWeek]+' '+Months[EndTime.month]+
                   ' '+IntToStr(EndTime.day)+', '+IntToStr(EndTime.year)+

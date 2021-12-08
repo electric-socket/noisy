@@ -8,15 +8,14 @@
         <MainUnitHasCreateFormStatements Value="False"/>
         <MainUnitHasTitleStatement Value="False"/>
         <MainUnitHasScaledStatement Value="False"/>
-        <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="noisy"/>
+      <Title Value="blockread"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
-    <BuildModes Count="1">
-      <Item1 Name="Default" Default="True"/>
+    <BuildModes>
+      <Item Name="Default" Default="True"/>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
@@ -25,44 +24,35 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <Units Count="3">
-      <Unit0>
-        <Filename Value="noisy.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit0>
-      <Unit1>
-        <Filename Value=".gitignore"/>
-        <IsPartOfProject Value="True"/>
-      </Unit1>
-      <Unit2>
+    <Units>
+      <Unit>
         <Filename Value="blockread.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="blockread1"/>
-      </Unit2>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="noisy"/>
+      <Filename Value="blockread"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="3">
-      <Item1>
+    <Exceptions>
+      <Item>
         <Name Value="EAbort"/>
-      </Item1>
-      <Item2>
+      </Item>
+      <Item>
         <Name Value="ECodetoolError"/>
-      </Item2>
-      <Item3>
+      </Item>
+      <Item>
         <Name Value="EFOpenError"/>
-      </Item3>
+      </Item>
     </Exceptions>
   </Debugging>
 </CONFIG>

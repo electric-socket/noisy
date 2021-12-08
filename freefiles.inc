@@ -12,6 +12,8 @@
 //    displosing  of that element, then moving to the
 //    following element.
 
+// Whichever you use, you'll get a warning of
+// an unused proc for the other one
 procedure FreeFilesPrev;
      Var
         P: FilesP;
