@@ -85,9 +85,7 @@ Const
 
 type
       FilesP = ^TheFiles;
-      ExtP   = ^Extension;
-      ExtSortP = ^SortedExt;
-      ExtCountP = ^ExtCount;
+
       SizeP = ^SizeTable;
 
       TheFiles =   Record
@@ -103,20 +101,7 @@ type
         FQFN: UnicodeString;
     End;
 
-        Extension =   Record
-            Prev,
-            Next:   ExtP;
-            Count: Integer;
-            Exten:  unicodeString;
-        end ;
 
-        SortedExt = record
-            Prev,
-            Next:   ExtSortP;
-            Count: Integer;
-            Groups: ExtCountP;
-            GroupCount: Integer;
-        end;
 
         SizeTable = Record
              Prev,
@@ -125,10 +110,7 @@ type
              Count: Int64;
         end;
 
-        ExtCount = record
-             Next: ExtCountP;
-             Ext: UnicodeString;
-        end;
+
       showtype = (ShowInvalid, ShowName, ShowMedium, ShowFQFN);
 
 var
@@ -180,160 +162,6 @@ end;
 
 
 
-    Function GetExtension(Name:UnicodeString):UnicodeString;
-    var
-        P,
-        Final: integer;
-    begin
-        // find the period in the name
-        P:= pos('.',Name);
-        // If no period, no extension
-        if p = 0 then
-        begin
-            result := '';
-            exit;
-        end;
-        final := p+1;
-        while P<>0 do
-        begin
-            P := pos('.',Name,final) ;
-            if p<>0 then
-               final := P+1;
-        end;
-        Result :=  Copy(Name, final,length(Name));
-    end;
-
-// I'm moving this here as a duplicate until I know how it
-// failed, i.e. I btoke something...
-(*
-Procedure newScanDir(Const Prefix: UnicodeString;    // from where
-                                                      //   are we searching?
-                      Const Recurse,                  // Search that place
-                                                      //   recursively?
-                            Dirs,                     // include directories
-                                                      //   themselves in
-                                                      //   items we list?
-                            Files: Boolean);          // Do we also want to
-                                                      //   collect files?
-                                                      // (FALSE when we are
-                                                      //    only collecting
-                                                      //    directory names.)
-    var
-       E: UnicodeString;
-
-    Function isDirectory: boolean;
-    begin
-         result := (rslt.Attr And faDirectory) = faDirectory;
-    end;
-
-    // unsorted collection - simple one-way (downward)
-    // linked list
-    procedure CollectFile(Const prefix:  UnicodeString);
-    BEGIN
-       if SizeOnly then
-          Storesize
-       ELSE
-       BEGIN    // not only sizes
-           GetFileItem;
-           with FileChainLast^ do
-           begin
-               Name := rslt.name;
-               Attr := rslt.attr;
-               Date := rslt.TimeStamp;
-               Size := rslt.Size;
-               if rslt.size >Maxsize then
-                   Maxsize := rslt.size;
-               fileChainLast^.rpath := prefix;
-        // FQFN is a field in filechainlist for when we need to have
-        // the complete name oncluding trailing slash for directories
-               FQFN :=  Currentdir + SlashChar  + prefix +  Rslt.Name;
-               Date := rslt.TimeStamp;
-
-                if isDirectory then
-                begin  // only count directoriies
-                    FQFN := FQFN+SlashChar;
-                    Inc(SubDirCount);
-                    Inc(TotalDirCount)
-                end
-                else // only count files
-                    inc(GlobalFileCount);   // count total
-           END;  // WITH
-        END;  // sizeonly test
-        Inc(TotalFileCount); // all entriew found (files and folders)
-                             // except "." and ".." in each directory
-
-    end;
-
-
-    Procedure GetFileItem;
-    begin
-       If filechain = nil then  // first time
-       begin
-          new(FileChain);
-          FileChain^.prev := nil;
-          FileChain^.next := nil;
-          FileChainLast := FileChain;
-       end
-       else
-       begin
-          New(FileChainLast^.next);
-          FileChainLast^.next^.prev := FileChainLast;
-          FileChainLast := FileChainLast^.next;
-          FileChainLast^.Next := Nil;
-       end;
-    end;
-{$IFDEF Files}
-{$I StoreSize.inc}
-{$ENDIF}
-
-    
-{$Ifdef Extensions}
-{$I storeExt.inc}
-
-{$ENDIF}
-
-    // not dirs means don't put directories in the list, not to exclude
-    // searching them if recurse is true
-    begin // newscandir
-
-       // If just listing directory(ies) and
-       // not recursing, don't bother with
-       // the status indicator
-       if not dirs or recurse then
-          WRITE(GLOBALFILECOUNT:6,#8#8#8#8#8#8#8#8#8);
-        If FindFirst(Prefix+Path,Attr,rslt) = 0 Then
-        Repeat
-            If (rslt.Name = '.') Or  (rslt.Name = '..') Then
-                continue;  // skip parent and self
-            if isDirectory then
-            begin
-               if dirs then
-                        // collectfile will Count them
-                   CollectFile(Prefix)
-               else
-                   Inc(TotalDirCount);  // count directories even if not listing them
-               if recurse then
-               begin
-                   ScanDir(prefix+rslt.Name+SlashChar,Recurse,Dirs,Files);
-
-               end;
-            end
-            else     // Not a directory
-               if files then      // collecting file names instead of extensions
-               begin
-                   CollectFile(Prefix);
-{$IFDEF Extensions}
-                   // If not collecting extensions 
-                   // then skip this
-                     E := LowerCase(GetExtension(rslt.Name)); // so all extensions are the same
-                     StoreExt;
-{$ENDIF}
-               end;
-
-        Until FindNext(rslt) <> 0;
-        FindClose(rslt);
-     end;
-*)
 Procedure newScanDir(Const Prefix: UnicodeString;    // from where
                                                       //   are we searching?
                       Const Recurse,                  // Search that place
@@ -402,14 +230,12 @@ BEGIN
     end;
 end;
 
-{$IFDEF Files}
+
 {$I CollectSize.inc}
-{$ENDIF}
 
 
-{$Ifdef Extensions}
-{$Include storeExt.inc}
-{$ENDIF}
+
+
 
 // not dirs means don't put directories in the list, not to exclude
 // searching them if recurse is true
@@ -456,94 +282,11 @@ begin // scandir
  end;
 
 
-
-{$IFDEF Extensions}
-{$I SortExt.inc}
-{$ENDIF}
-
 {$i FreeFiles.inc}
 
 {$I printchain.inc}
 
-{$IFDEF Extensions}
-     Procedure printext;
-     Const
-         Ascending = False;
 
-     VAR
-        CP:ExtCountP;
-        S: UnicodeString;
-        N: Byte;
-
-     begin
-        Writeln('. Total extensions found: ',TotalExt);
-        // NOTE: Since ascending is a constant,
-        // one of these lines will get a "dead code walking"
-        // message, i.e. Unreachable Code warninhg
-        if Ascending then
-            SortMoveP := SortTop
-        else
-            SortMoveP := SortBottom;
-
-         writeln('Extensions by usage');
-        while SortMoveP <> nil do
-        begin
-           CP := SortMoveP^.Groups;
-           If CP =NIL then continue;
-
-           write(SortMoveP^.count:8);
-           if sortmovep^.Groupcount >4 then
-             write (' (',SortMoveP^.Groupcount:3,') ')
-           else
-             write ('  ':7)
-           ;
-
-           N := 10;
-
-           while CP<>nil do
-           begin
-              S := CP^.Ext;
-              If S='' then
-                S :='[No Extension]'
-               else
-                 S := '".'+S+'"';
-
-              If N+Length(S) > 76 then
-              begin
-                  writeln;
-                  write(' ':10);
-                  N := 10;
-              end;
-              Write(S,'  ');
-              N := N+Length(CP^.Ext)+2;
-              CP := CP^.Next;
-           end;
-           writeln;
-           // NOTE: Since ascending is a constant,
-           // one of these lines will get a "dead code walking"
-           // message, i.e. Unreachable Code warninhg
-           if Ascending then
-              SortMoveP := SortMoveP^.next
-            else
-              SortMoveP := SortMoveP^.prev;
-         end;
-        writeln;
-     end;
-
-{ $I DoubleCheck.inc - if needed}
-
-     Procedure DumpExt;
-     begin
-         ExtLast := Ext;
-         While extLast<>nil do
-         begin
-             writeln('  ',extlast^.count,' ',extlast^.Exten );
-
-            Extlast := ExtLast^.next;
-         end;
-     end;
-
-{$ENDIF}
      Procedure One;
      var
         newpath:UnicodeString;
@@ -553,21 +296,7 @@ begin // scandir
        path := '*';
        attr := faAnyFile;
 
-{$IFDEF Extensions}
-       TotalExt := 0;
-{
-       Write('For Analysis, the ',
-             'RSLT record size is ',
-             SizeOf(Rslt),' bytes. ');
-       WriteLn('The File record is ',SizeOf(TheFiles),
-             ' bytes, Extension record is ',
-             Sizeof(Extension));
-       Writeln('Sort record is ',SizeOf(SortedExt),
-              ' bytes, and Count record is ',
-            SizeOf(ExtCount),' bytes.');
- }
-{$ENDIF}
-        Writeln(Banner);
+
         repeat
             GlobalFileCount := 0;
             TotalDirCount :=0;

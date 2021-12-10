@@ -12,6 +12,7 @@ program noisy;
 uses windows,sysutils;
 const
     Version = 'Ver. 0.1';
+    Quote ='"';
     Buffercount = 10; // Maximum numder of input and output files
                       // that can be opened simultameously
     MaxBufSize = 100000; // maximum amount of memory buffer can use
@@ -30,6 +31,7 @@ const
 
     SlashChar = '\'; // Your system's directory separator,
                      // \ on windows; / on unix, linux, etc
+    NoisyPrefix = '{';  // so noisy doesn't trip on iyself
 
 
 type
@@ -42,34 +44,23 @@ type
                       // has to support them.
 {$ELSE}
 {$IFDEF BITS32}
-     LargeInt = Integer; // It is for 32 bit operating systems }
+     LargeInt = LongInt; // It is for 32 bit operating systems }
 {$ELSE}
    {$FATAL Machine size must be 32 or 64 Bits}
 {$ENDIF}
 {$ENDIF}
 
-    Pcharacter = ^Char;
 
-   { Taking a hint from the XDPascal compiler, I don't
-     read or write files one byte at a time. I request
-     a block of memory big enough to either:(1) hold the
-     entire file, read it all into that, then go through
-     the cached memory copy a byte at a time; or
-     (2) Create a reasonable sized buffer, and read as much
-     of ther file as will fit, then process as much as
-     will fit, then advance a block at a time
-     *Much* faster. }
+
 
      TBuffer = record
          InFile,                  // the input
          OutFile: File;           //  and output files
          InName,                  // name of the input
          OutName: UnicodeString;  //  and output files
-         inPtr,                   // where we are in the buffer
-         OutPtr: PCharacter;      //  for input and output files
          Ch, Ch2,                 // the characters being read
          OutCh: Char;             //  and written
-         LineNumber,               // Line number in input file
+         LineNumber,              // Line number in input file
          LinePosition: integer;   // poition on line
          Free,                    // is this buffer in use?
          isBlocked,               // was the buffer space smaller than the file?
@@ -96,14 +87,33 @@ type
      end;
 
      ExtP   = ^Extension;
-
-
      Extension =   Record
             Prev,
             Next:   ExtP;
-            Count: Integer;
             Exten:  unicodeString;
      end ;
+
+     SettingPlacement = (Prefix, Overwrite, PassComment, None); // How the
+                                             // Noisy comment is to be added
+     TypeUsed = (Brace, StarComma, SlashSlash); // what type comment
+     MarkPlace = (before, after, NoMark);    // where mark of insertion is put
+     MainInsert = (triggerANDBothFlags, bothflags, triggerANDstartflag,
+                   startflag, triggerANDEndflag, Endflag, noflag); // what gors
+                                             // into main program
+     FillStrings = Array[1..6] of UnicodeString;  // lines to insert
+     SettingsRec = Record
+          TopAddMode,                        // how first comment is added
+          BottomAddMode: SettingPlacement;   // how end comment is added
+          TopType,                           // what form of comment at top
+          BottomType: TypeUsed;              // what form at bottom
+          FillTop,                           // lines to insert at top
+          FillBottom: FillStrings;           // lines to insert at bottom
+          Activator,                         // string in main program used
+                                             // to activate display
+          Flag: UnicodeString;               // string to flag inserted lines
+          MaxLength: Byte;                   // maximum lemgth of lines
+          Main: MainInsert;                  // what to put in main program
+     end;
 
 
 
@@ -113,27 +123,57 @@ var
   Buffer: Array[1..Buffercount] of TBuffer;
 //  StartTime,
 //  EndTime: TSystemTime;
+  Settings: SettingsRec =(
+               TopAddMode: Prefix;
+               BottomAddMode: Prefix;
+               TopType: Brace;
+               BottomType: Brace;
+               FillTop: ('File &Path&FN marked &date.&time',
+                         '$IFDEF Noisy',
+                         '$INFO &Path&FN entered',
+                         '$ENDIF',
+                         '',
+                         '');
+            FillBottom: ('$IFDEF Noisy',
+                         '$INFO &Path&FN entered',
+                         '$ENDIF',
+                         'File &Path&FN marked &date.&time',
+                         '',
+                         '');
+             Activator: '$DEFINE Noisy';
+                  Flag:  NoisyPrefix+'.noisy}'; // so it doesn't
+                                              // see it in itself
+             MaxLength: 71;
+             Main: triggerANDBothFlags;
+            );
 
-  StartTime,
+  Fold: boolean = FALSE;
+
+  StartTime,               // for elapsed time
   EndTime: SystemTime;
 
-  FN, Line,
-  TimeString1,
-  TimeString: String;
-  H,M,S,MS,
-  FM, IR, LineCount,
-  ProcFuncCount,
+  Param1,    // used to read command linme parameters
+  Param2,
+  CommandFile,  // file to read commands
+  TextPrefix,   // to balance help stmts
+  LineContinuation,  // separate explanation from command
+  TimeString: String; // To display date and time
+  H,M,S,MS,           // timing values
+  FM,                 // saved filemode
+  IR,                 // saved IOResult
+  LineCount,          // number of lines
   TotalData: Integer;
   CompCount:Double;
   Dot: char ='.';  // your systwm's separator for extension
 
 // Extensions
-  Ext,
-  ExtLast: ExtP;
+
+  TakeExt,
+  Exclude: ExtP;
   E: UnicodeString;
   totalext: integer = 0;
 
-{$I N_StoreExt.inc}
+
 
 // Converts a file name into direcvtory, name, extension.
 
@@ -168,6 +208,20 @@ if SlashPos > 0 then
 
 end;
 
+
+Function CTS(Const CTime:SystemTime): AnsiString;
+begin
+   Result := Days[CTime.dayOfWeek]+
+             ' '+Months[CTime.month]+
+             ' '+IntToStr(CTime.day)+
+             ', '+IntToStr(CTime.year)+
+             ' '+IntToStr(CTime.Hour)+
+             ':';
+   if CTime.Minute < 10 then Result := Result+'0';
+   Result := Result+ IntToStr(CTime.Minute)+':';
+   if CTime.Second < 10 then Result := Result+'0';
+   Result := Result+ IntToStr(CTime.Second);
+end;
 
 
 
@@ -224,28 +278,89 @@ end;
 
 
 begin
-    Writeln('Noisy: Program to tag source code, ',Version);
+
+    Writeln('Noisy: Program to tag (or remove said tags from) source code, ',
+                    Version);
     Writeln('Copyright 2021 Paul Robinson - Released under GPL ver. 2');
+    Starttime.Year:=0; EndTime.Year:=0;    // eliminate uninitialized warning
+    GetLocalTime(StartTime);
+    Write('Good ');
+    If StartTime.Hour <12 then
+        Write('morning')
+    else  if StartTime.Hour <18 then
+        Write('afternoon')
+    else
+        Write('evening');
+    writeln(', it is now ', CTS(StartTime));
+    Writeln('Current directory ',GetCurrentDir);
+    Writeln;
+    Param1 := UPPERCase(Paramstr(1));
+
+    LineContinuation := Space(10);
+    TextPrefix := Space(20);
+
+    if ( paramcount <1) or
+       (Param1='/H') or
+       (Param1='-H') or (Param1='--HELP') then
+    begin
+        writeln('Usage: ',paramstr(0),' ');
+        writeln;
+        writeln(LineContinuation,'Then on the command line specify any one of:');
+        writeln;
+        Writeln(TextPrefix,'@NAME  ',
+               '[process directory (and subdirs) according to ',
+               'instructions in file NAME]');
+        Writeln(TextPrefix,'/G | /GO | -g | --go  ',
+                  '[equivalent to @noisy.cfg ]');
+        Writeln(TextPrefix,'/A | -a | /ADD | --add  ',
+                ' [insert noisy marks in files in this directory');
+        Writeln(TextPrefix,LineContinuation,'(and subdirs) according ',
+                                            'to ADD settings in noisy.cfg]');
+        Writeln(TextPrefix,'/H | -h | /HELP | --help | --HELP  ',
+                '[show this message and exit]');
+        Writeln(TextPrefix,'/R | -r | /REMOVE | --remove  ',
+                      '[Remove noisy marks from files in this directory ');
+        Writeln(TextPrefix,LineContinuation,'(and subdirs) according to ',
+                      'REMOVE settings in noisy.cfg]');
+        Writeln(TextPrefix,'/W | /WRITE | -w | --write  ',
+                      '[write internal settings to noisy.cfg]');
+        writeln;
+        writeln(LineContinuation,'Options which may be used as ',
+                       'second argument:');
+        writeln;
+        Writeln(TextPrefix,'/T | -t | /TEST | --dryrun  [Display settings, ',
+                       'names of files to process, and exit]');
+        writeln;
+        Writeln('Note: If noisy.cfg is not present, internal settings ',
+                'will be used');
+        Writeln('A process file name containing spaces must be ',quote,
+                '@quoted like.this',quote);
+        writeln('Command switches starting with / , - , or -- are ',
+                'not case sensitive');
+    end;
+
+    writeln;
+
 
     // Check command lines and any options
 
 
-    Writeln('Current directory ',GetCurrentDir);
+
+
+
 
      FM := filemode;
      FileMode := 0; // force read-only in case file is read only
-     repeat
+ (*    repeat
          write('Enter file name: ');
-         readln(fn);
+         readln(CommandFile);
          assign(F,fn);
          {$I-} reset(F); {$I+}
          IR := IOResult;
          if IR = 0 then break;
          writeln('Error ',IR);
-     until false;
+     until false;    *)
 
-     StartTime.Year :=0;
-     Linecount :=0;
      GetLocalTime(StartTime);
       TimeString := Days[StartTime.dayOfWeek]+' '+Months[StartTime.month]+
                   ' '+IntToStr(StartTime.day)+', '+IntToStr(StartTime.year)+
@@ -255,21 +370,15 @@ begin
 
        // This is where the program starts performing
 
-       While not eof(F) do
-       begin
-          Readln(F,line);
-          inc(linecount);
-          // something else
 
-       end;
 
-       close(F);
-       writeln(Linecount,' lines');
 
-(*       writeln;
-       write('Wait a while, then press Enter: ');
-       readln;
-*)
+
+
+
+
+
+
        GetLocalTime(EndTime);
        TimeString :=  Days[EndTime.dayOfWeek]+' '+Months[EndTime.month]+
                   ' '+IntToStr(EndTime.day)+', '+IntToStr(EndTime.year)+

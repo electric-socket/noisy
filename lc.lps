@@ -8,28 +8,113 @@
       <Unit>
         <Filename Value="lc.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <TopLine Value="13"/>
-        <CursorPos X="35" Y="44"/>
+        <TopLine Value="122"/>
+        <CursorPos X="24" Y="92"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="X:\source\XDPW_Main.pas"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="169"/>
-        <CursorPos Y="192"/>
+        <TopLine Value="277"/>
+        <CursorPos X="29" Y="308"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="X:\source\Common.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1244"/>
+        <CursorPos X="6" Y="1244"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="ls_dirscan.inc"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="58"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\inc\systemh.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="1171"/>
+        <CursorPos X="11" Y="1183"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="X:\units\System.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="809"/>
+        <CursorPos X="53" Y="839"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="printchain.inc"/>
+        <EditorIndex Value="2"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="scansort.inc"/>
+        <EditorIndex Value="-1"/>
+        <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="noisy.pas"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="182"/>
+        <CursorPos X="27" Y="223"/>
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="1">
+    <JumpHistory HistoryIndex="11">
       <Position>
         <Filename Value="lc.lpr"/>
-        <Caret Line="11" Column="3" TopLine="5"/>
+        <Caret Line="257" Column="16" TopLine="250"/>
       </Position>
       <Position>
         <Filename Value="lc.lpr"/>
-        <Caret Line="7" Column="17"/>
+        <Caret Line="256" Column="55" TopLine="244"/>
+      </Position>
+      <Position>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="165" Column="15" TopLine="196"/>
+      </Position>
+      <Position>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="313" Column="20" TopLine="300"/>
+      </Position>
+      <Position>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="312" Column="39" TopLine="305"/>
+      </Position>
+      <Position>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="270" Column="26" TopLine="251"/>
+      </Position>
+      <Position>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="360" Column="78" TopLine="353"/>
+      </Position>
+      <Position>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="244" Column="15" TopLine="256"/>
+      </Position>
+      <Position>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="356" TopLine="348"/>
+      </Position>
+      <Position>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="356" TopLine="270"/>
+      </Position>
+      <Position>
+        <Filename Value="ls_dirscan.inc"/>
+        <Caret Line="299" TopLine="271"/>
+      </Position>
+      <Position>
+        <Filename Value="printchain.inc"/>
       </Position>
     </JumpHistory>
     <RunParams>
@@ -37,4 +122,22 @@
       <Modes ActiveMode=""/>
     </RunParams>
   </ProjectSession>
+  <Debugging>
+    <Watches>
+      <Item>
+        <Expression Value="  Function Plural(N:LongInt; Plu:String; Sng: String): string;
+  Var
+     s:String;
+  Begin
+      IStr(N,S);
+      S := &apos; &apos;+S+&apos; &apos;;
+      If n&lt;>1 Then
+          Result:= S+ Plu
+       Else
+          Result := S + Sng;
+  End;
+"/>
+      </Item>
+    </Watches>
+  </Debugging>
 </CONFIG>
