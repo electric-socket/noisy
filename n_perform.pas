@@ -76,15 +76,15 @@ end;
 
 
 
-
-Procedure ScanFiles(Const Prefix: UnicodeString);    // from where
-                                                  //   are we searching?
+// Recursively scan directories
+Procedure ScanFiles(
+            Const Prefix: UnicodeString);  //< from where are we searching?
 var
-   Rslt: TUnicodeSearchRec;    // since this proc is recursive,
-                               // this must be local
-   TheFilePath,
-   TheNameOnly,
-   TheExtension: UnicodeString;
+   Rslt: TUnicodeSearchRec;    //< since this proc is recursive,
+                               //< this must be local
+   TheFilePath: UnicodeString = '';  //< File name spliot into path
+   TheNameOnly: UnicodeString = '';  //< File Name w/o extenion
+   TheExtension: UnicodeString = ''; //< File Name extension
 
    Function isDirectory: boolean;
    begin
@@ -127,7 +127,7 @@ var
            rpath := prefix;
 
            FQFN  := Currentdir;
-           If LeftStr(Currentdir,1)<>SlashChar then
+           If LeftStr(String(Currentdir),1)<>SlashChar then
                FQFN  := FQFN + SlashChar;
            FQFN  := FQFN + prefix +  Rslt.Name;
 

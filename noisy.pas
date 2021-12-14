@@ -183,6 +183,7 @@ begin
        Currentdir   := UTF8Decode(GetCurrentDir);
        Writeln('** CD=',currentdir);
 {$IFDEF Testing}
+       Writeln('*** WARNING: Test mode using LIB subdir');
        ScanFiles('lib\'); // start with alternate directory
 {$ELSE}
        ScanFiles(''); // start with our directory

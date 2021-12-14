@@ -115,14 +115,14 @@ var
                          '',
                          '');
               FillBottom: ('$IFDEF Noisy',
-                          '$INFO &Path&FN left',
+                          '$INFO Leaving &Path&FN',
                           '$ENDIF',
                           'File &Path&FN marked &date.&time',
                           '',
                           '');
               Activator: '$DEFINE Noisy';
-                   Flag:  NoisyPrefix+'.Noisy'; // so it doesn't
-                                                // see it in itself
+                   Flag: '{' +'.Noisy}'; // so it doesn't
+                                   // see it in itself
              MaxLength: 71;
              Main: triggerANDBothFlags;
             );
@@ -172,7 +172,7 @@ type
     TheFiles = Record
         Prev,            //< previous: only used if double-linked list is used
         Next:   FilesP;  //< Next link in chain
-        SubDirCount:Integer;  //M subdirectories if this has any
+        SubDirCount:Integer;  //< subdirectories if this has any
         Attr: Integer;    //< File attributes
         Size: LargeInt;   //< Size in bytes
         Date: TdateTime;  //< File last write
@@ -205,6 +205,16 @@ const
         // Date/Time display format
     DateFormatChars = 'yyyy"-"mm"-"dd hh":"nn":"ss';
 
+Type
+    MacroP = ^MacroTable;
+    MacroTable = Record
+        Key,
+        Value: UnicodeString;
+        Next: MacroP;
+    end;
+Var
+    MacroStart,
+    MacroWalker: MacroP;
 
 Function CTS(Const CTime:SystemTime): AnsiString;  //< Create Time String
 Function Radix( N:LargeInt; theRadix:LargeInt):string; //< convert numbers

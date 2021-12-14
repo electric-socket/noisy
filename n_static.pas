@@ -32,6 +32,7 @@ var
     FFile:  file;
     AlreadyProcessed,
     Fail: boolean;
+    Comment: TypeUsed;
     I,
     NumLines:Integer;
     CurrentName,
@@ -109,14 +110,18 @@ begin
          end;
          if not fail then
          begin
-//  *.     if any of the lines read have the string of {.Noisy then
+//  *.     if any of the lines read have the string of
+//              Open brace.Noisy  or  paren star.Noisy  or
+//              slash slash .noisy then
 //  *.         set alreadyprocessed true
               For I:= 1 to NumLines do
-                  if pos(Settings.Flag,LineBuffer[I])>0 then
-                  begin
-                      AlreadyProcessed := TRUE;
-                      break;
-                  end;
+                          // check for .noisy with braces
+                if pos(Settings.Flag,LineBuffer[I])>0 then
+                begin
+                    AlreadyProcessed := TRUE;
+                    break;
+                end;
+
 //  *.     rename file to end with .bak
                If not RenameFile(CurrentName,NewName) then
                begin
@@ -133,8 +138,13 @@ begin
                IR := IOResult;
                if IR<>0 then
                begin
+                   Close(InFile);
                    Writeln;
-                   Writeln('?Problem copying, file renamed to ',Newname);
+                   Write('?Error ',IR,', problem copying, ');
+                   If RenameFile(NewName,CurrentName) then
+                       Writeln('skipping file')
+                   else       // xan't reset it
+                       Writeln('file renamed to ',Newname);
                    Fail := TRUE;
                end;
          end;
@@ -147,22 +157,36 @@ begin
                 IR := IOResult;
                 if IR<>0 then
                 begin
+                    Close(InFile);
                     Writeln;
-                    Writeln('?error trying to create output file',' ',
-                            'file renamed to ',NewName);
-                    close(InFile);
-                    Fail := True;
+                    Write('?Error ',IR,' trying to create output file, ');
+                    If RenameFile(NewName,CurrentName) then
+                        Writeln('skipping')
+                    else
+                        Writeln('original renamed to ',Newname);
+                    Fail := TRUE;
                 end;
 //  *.     if not alreadyprocessed
          end;
          if not fail then
          begin
+             If not AlreadyProcessed then
 //  *.       write the noisy header
-             For I := 1 to 6 do
-                if Settings.FillTop[I]<>'' then
-                   Write(OutFile,StartComment[Settings.TopType],
+                 For I := 1 to 6 do
+                    if Settings.FillTop[I]<>'' then
+                    begin
+                        if Settings.TopType = SlashSlash then
+                        // if // marker, put before flag
+                            Write(OutFile,Settings.Flag);
+                        Write(OutFile,StartComment[Settings.TopType],
                                  Settings.FillTop[I],
                                  EndComment[Settings.TopType]);
+                        if Settings.TopType <> SlashSlash then
+                        // if not // type, put flag after
+                            Write(OutFile,Settings.Flag);
+                        Writeln(OutFile);
+
+                end;
 
 
 
