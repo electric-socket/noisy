@@ -10,7 +10,7 @@ const
      MAXFOLDERS = 10;
 
 type
-     LargeInt = Int64;
+     Int64 = Int64;
      Pcharacter = ^Char;
 
      TBuffer = record
@@ -34,7 +34,7 @@ type
          InSize,                  // size of input file
          OutSize,                 //  and output file
          inPos,                   // current position on in file
-         OutPos: LargeInt;        //  and on out file
+         OutPos: Int64;        //  and on out file
      end;
 
 var
@@ -47,7 +47,7 @@ procedure InitializeScanner(const Name: UnicodeString; Const Bufnum:Integer);
 var
 
   PriorFileMode,          // save its old value
-  ActualSize: LargeInt;   // actual size of file
+  ActualSize: Int64;   // actual size of file
   FolderIndex: Integer;   // Should be more than enough
 
 begin

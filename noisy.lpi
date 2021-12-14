@@ -15,6 +15,14 @@
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
+    <VersionInfo>
+      <UseVersionInfo Value="True"/>
+      <AutoIncrementBuild Value="True"/>
+      <RevisionNr Value="1"/>
+      <BuildNr Value="15"/>
+      <Attributes pvaPreRelease="True"/>
+      <StringTable FileDescription="Program to add marks to (or remove them from) source code files" LegalCopyright="Copyright 2012 Paul Robinson. licensed under GPL v.2" ProductName="Noisy" ProductVersion="0.0.1"/>
+    </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
@@ -25,7 +33,7 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <Units Count="3">
+    <Units Count="7">
       <Unit0>
         <Filename Value="noisy.pas"/>
         <IsPartOfProject Value="True"/>
@@ -39,6 +47,25 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="blockread1"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="n_perform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="N_perform"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="LICENSE.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="n_utility.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="N_utility"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="n_static.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="N_Static"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

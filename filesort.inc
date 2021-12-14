@@ -1,12 +1,9 @@
-// scansort.inc
+// This file is temporary; it is used to hold routines
+// I will want and can "cannibalize: this file.
+// This file will be discarded when I have "sucked the marrow out"
+// and left nothing of value
 
-{ The following code is used by both
-  SortExtnsions (which sets the **Extensions**
-                 compile-time define) and by 
-  Scanfiles     (which sets the **Files** 
-                compile-time define)
-
- ***************************************************************************
+(***************************************************************************
  *                                                                         *
  *   This source is free software; you can redistribute it and/or modify   *
  *   it under the terms of the GNU General Public License,  version 2,     *
@@ -30,18 +27,15 @@
     2021-12-03 This code does two things, First, it scans a directory
                and all subdirectories for files.
 
-               Now, depending on which program invoked it, it
+               Now, depending on which mode is selecved, it
                will do one of two things:
-               For Scanfiles, it thenn counts and displays all files
-                   thjat it fou7nd.
-               For SortExtensions, it sorts, by usage, all extensions
-                   that it finds, then counts how many it found, in order
-                   from most popular to least popular, then if more than
-                   one extension has that many uses, it lists all the
-                   extesions that do.
+               1. Insert marks at the beginning of each file to
+                  cause it to show a compiler message when it starts
+                  and when it ends
+               2. Remove said marks
 
-    2021-11-21:  I set both programs aside for so long I've
-    forgotten exactly what it does...
+    2021-11-21:  I set the program this came from aside for
+                 so long I've forgotten exactly what it does...
 
     Was not using source code control (my bad), probably not
     a good idea, but I didn't think - an unfortunatley all 
@@ -51,11 +45,15 @@
     use for it. (Program Noisy)
     
 
-  Latest update: 2021-11-21 -- Add this boilerplate, minor changes
-
-  Previous versions: 2020-11-23 -- Program essentially completed,
-
-}
+  Latest update:     2021-12-13 -- Program scans directory
+                                   Retrieves only files with
+                                   selected extensions.
+                                -- Displays those files to
+                                   confirm is correct.
+  Previous versions: 2020-11-23 -- Program as originally intended
+                                   essentially completed,
+                     2021-11-21 -- Add this boilerplate, minor changes
+*)
 
 uses  SysUtils;
 
