@@ -1,4 +1,8 @@
 // Misc Utility routines
+// 2021-12-13 Paul Robinson
+// part of the Noisy program
+
+{$I NoisyPrefixCode.inc}
 unit N_utility;
 {$mode ObjFPC}{$H+}
 
@@ -9,7 +13,7 @@ uses
 
 
 const
-    Version = 'Ver. 0.1.45';
+
     Quote ='"';
     Buffercount = 10; // Maximum numder of input and output files
                       // that can be opened simultameously
@@ -31,7 +35,15 @@ const
     NoisyPrefix = '{';  // so noisy doesn't trip on iyself
 
 type
-
+{$IFDEF BITS32}
+    LargeInt = Integer;
+{$ELSE}
+    {$IFDEF BITS64}
+    LargeInt = Int64;
+    {$ELSE}
+        {$FATAL Must define BITS32 or BITS64}|
+    {$ENDIF}
+{$ENDIF}
      TBuffer = record
          InFile,                  //<the input file
          OutFile: File;           //<output file
@@ -44,7 +56,7 @@ type
          InSize,                  // size of input file
          OutSize,                 //  and output file
          inPos,                   // current position on in file
-         OutPos: Int64;           //  and on out file
+         OutPos: LargeInt;        //  and on out file
      end;
 
      TSystemTime = record
@@ -60,7 +72,15 @@ type
 
      SettingPlacement = (Prefix, Overwrite, PassComment, None); // How the
                                              // Noisy comment is to be added
-     TypeUsed = (Brace, StarComma, SlashSlash); // what type comment
+     TypeUsed = (Brace, ParenStar, SlashStar, SlashSlash); // what type comment
+Const
+     StartComment: Array[TypeUsed] of String[2] = (
+                  '{',    '(*',     '/*',        '//');
+     EndComment: Array[TypeUsed] of String[2] = (
+                  '}',    '*)',     '*/',        '');
+
+
+Type
      MarkPlace = (before, after, NoMark);    // where mark of insertion is put
      MainInsert = (triggerANDBothFlags, bothflags, triggerANDstartflag,
                    startflag, triggerANDEndflag, Endflag, noflag); // what gors
@@ -154,7 +174,7 @@ type
         Next:   FilesP;  //< Next link in chain
         SubDirCount:Integer;  //M subdirectories if this has any
         Attr: Integer;    //< File attributes
-        Size: Int64;      //< Size in bytes
+        Size: LargeInt;   //< Size in bytes
         Date: TdateTime;  //< File last write
         Name,             //< file name including extension
         NameOnly,         //< Name w/o extension
@@ -171,7 +191,7 @@ Var
     Attr,                      //< file attributes
     TotalFileCount,            //< all files found
     GlobalFileCount: Integer;  //< all files kept
-    MaxSize: Int64;            //< largest file found
+    MaxSize: LargeInt;         //< largest file found
 
     // Directories
     CurrentDir,                 //< Directory we started in
@@ -187,10 +207,10 @@ const
 
 
 Function CTS(Const CTime:SystemTime): AnsiString;  //< Create Time String
-Function Radix( N:Int64; theRadix:Int64):string; //< convert numbers
+Function Radix( N:LargeInt; theRadix:LargeInt):string; //< convert numbers
 function I2(N:Word):string;               //< insert leading 0 if N<10
 // select correct tense when number is single or plural
-Function Plural(N:Int64; Plu:String; Sng: String): string;
+Function Plural(N:LargeInt; Plu:String; Sng: String): string;
 // convert a file name to its component parts
 procedure SplitPath(const Path: UnicodeString; var Folder, Name, Ext: UnicodeString);
 Procedure GetExt(const Path: UnicodeString; var Ext: UnicodeString);
@@ -220,7 +240,7 @@ end;
   // InttoStr, but works for any radix, e.g. 2, 8, 10, 16,
   // or any others up to 36. This only works for
   // non-negative numbers.
-  Function Radix( N:Int64; theRadix:Int64):string;
+  Function Radix( N:LargeInt; theRadix:LargeInt):string;
   VAR
      S: String;
      rem, Num:integer;
@@ -250,7 +270,7 @@ end;
   end;
 
 
-  Function Plural(N:Int64; Plu:String; Sng: String): string;
+  Function Plural(N:LargeInt; Plu:String; Sng: String): string;
   Var
      s:String;
   Begin

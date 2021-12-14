@@ -1,3 +1,7 @@
+// Performs the processing of the files
+// 2021-12-13 Paul Robinson
+// part of the Noisy program
+{$I NoisyPrefixCode.inc}
 unit N_perform;
 
 {$mode ObjFPC}{$H+}
@@ -115,12 +119,17 @@ var
        begin
            Name  := rslt.name;
            NameOnly := TheNameOnly;
+           Writeln('** Mame=',name,' NameOnly=',NameOnly);
            Ext   := TheExtension;
            Attr  := rslt.attr;
            Date  := rslt.TimeStamp;
            Size  := rslt.size;
            rpath := prefix;
-           FQFN  := Currentdir + SlashChar  + prefix +  Rslt.Name;
+
+           FQFN  := Currentdir;
+           If LeftStr(Currentdir,1)<>SlashChar then
+               FQFN  := FQFN + SlashChar;
+           FQFN  := FQFN + prefix +  Rslt.Name;
 
 // Only use these if counting sizes
            if rslt.size >Maxsize then
@@ -178,7 +187,6 @@ Begin
        while P<>NIL do
        begin
            Write(I:4,'. ',P^.rpath);
-           iF P^.rpath<>'' THEN WRITE('\');
            WRITELN(p^.name);
            Inc(I);
            P := P^.Next;

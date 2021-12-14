@@ -1,5 +1,3 @@
-{$DEFINE BITS64}{ This is compiled for 64-bit machines}
-{$UNDEF BITS32}
 // All included files start with N_ so
 // they won't conflict with files I use
 // for other purposes.
@@ -8,8 +6,74 @@
 // Version: 0.1.45
 // Date:    2021-12-03
 
+
+
+{$ifdef mswindows}{$apptype console}{$endif}
+{$I NoisyPrefixCode.inc}
 program noisy;
-uses sysutils, N_Perform, N_Utility, N_Static;
+uses sysutils
+// FPC 3.0 fileinfo reads exe resources as long as you register the appropriate units
+, fileinfo
+, winpeimagereader {need this for reading exe info}
+, elfreader {needed for reading ELF executables}
+, machoreader {needed for reading MACH-O executables}
+, N_Perform, N_Utility, N_Static;
+
+{$IFDEF AUTOVersion}
+     {
+       Displays file version info for
+     - Windows PE executables
+     - Linux ELF executables (compiled by Lazarus)
+     - macOS MACH-O executables (compiled by Lazarus)
+       Runs on Windows, Linux, macOS
+
+       begin
+         FileVerInfo:=TFileVersionInfo.Create(nil);
+         try
+           FileVerInfo.ReadFileInfo;
+           writeln('Company: ',FileVerInfo.VersionStrings.Values['CompanyName']);
+           writeln('File description: ',FileVerInfo.VersionStrings.Values['FileDescription']);
+           writeln('File version: ',FileVerInfo.VersionStrings.Values['FileVersion']);
+           writeln('Internal name: ',FileVerInfo.VersionStrings.Values['InternalName']);
+           writeln('Legal copyright: ',FileVerInfo.VersionStrings.Values['LegalCopyright']);
+           writeln('Original filename: ',FileVerInfo.VersionStrings.Values['OriginalFilename']);
+           writeln('Product name: ',FileVerInfo.VersionStrings.Values['ProductName']);
+           writeln('Product version: ',FileVerInfo.VersionStrings.Values['ProductVersion']);
+         finally
+           FileVerInfo.Free;
+         end;
+
+     }
+     FileVerInfo: TFileVersionInfo;
+
+{$R *.res}
+
+
+Function Version:AnsiString;
+begin
+  try
+    FileVerInfo.ReadFileInfo;
+    Result:= FileVerInfo.VersionStrings.Values['FileVersion'];
+  finally
+    FileVerInfo.Free;
+  end;
+end;
+
+Function CopyRight:AnsiString;
+begin
+  try
+    FileVerInfo.ReadFileInfo;
+    Result := FileVerInfo.VersionStrings.Values['LegalCopyright'];
+  finally
+    FileVerInfo.Free;
+  end;
+end;
+{$ELSE}
+Const
+    Version = 'Ver. 0.1.45';
+    CopyRight = 'Copyright 2021 Paul Robinson';
+{$ENDIF}
+
 
 
 procedure main;
@@ -17,7 +81,7 @@ begin
 
     Writeln('Noisy: Program to tag (or remove said tags from) source code, ',
                     Version);
-    Writeln('Copyright 2021 Paul Robinson - Released under GPL ver. 2');
+    Writeln(Copyright,' - Released under GPL ver. 2');
     Starttime.Year:=0; EndTime.Year:=0;    // eliminate uninitialized warning
     GetLocalTime(StartTime);
     Write('Good ');
@@ -118,7 +182,11 @@ begin
 
        Currentdir   := UTF8Decode(GetCurrentDir);
        Writeln('** CD=',currentdir);
-       ScanFiles('lib'); // start with our directory
+{$IFDEF Testing}
+       ScanFiles('lib\'); // start with alternate directory
+{$ELSE}
+       ScanFiles(''); // start with our directory
+{$ENDIF}
        writeln('** Back');
 
        // It will then ask whether to add noisy marks,

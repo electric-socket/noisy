@@ -4,13 +4,11 @@
     <PathDelim Value="\"/>
     <Version Value="12"/>
     <BuildModes Active="Default"/>
-    <Units Count="25">
+    <Units Count="26">
       <Unit0>
         <Filename Value="noisy.pas"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="103"/>
-        <CursorPos X="19" Y="130"/>
-        <UsageCount Value="196"/>
+        <UsageCount Value="199"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -18,17 +16,17 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="9" Y="2"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="98"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit1>
       <Unit2>
         <Filename Value="blockread.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="blockread1"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="70"/>
         <CursorPos Y="82"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="98"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -36,19 +34,19 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="98"/>
         <CursorPos Y="133"/>
-        <UsageCount Value="10"/>
+        <UsageCount Value="9"/>
       </Unit3>
       <Unit4>
         <Filename Value="project1.lpr"/>
         <UnitName Value="Noisy"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit4>
       <Unit5>
         <Filename Value="ScanFiles.lpi"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit5>
       <Unit6>
@@ -56,14 +54,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="16"/>
         <CursorPos X="5" Y="50"/>
-        <UsageCount Value="6"/>
+        <UsageCount Value="5"/>
       </Unit6>
       <Unit7>
         <Filename Value="filesort.inc"/>
-        <EditorIndex Value="9"/>
-        <TopLine Value="46"/>
-        <CursorPos X="3" Y="56"/>
-        <UsageCount Value="99"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="236"/>
+        <CursorPos X="26" Y="262"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -71,21 +69,20 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="147"/>
         <CursorPos X="7"/>
-        <UsageCount Value="28"/>
+        <UsageCount Value="27"/>
       </Unit8>
       <Unit9>
         <Filename Value="update.pas"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <CursorPos X="9" Y="4"/>
-        <UsageCount Value="99"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="Buffer_Test.lpr"/>
-        <EditorIndex Value="5"/>
-        <TopLine Value="29"/>
-        <CursorPos X="20" Y="50"/>
-        <UsageCount Value="86"/>
+        <EditorIndex Value="6"/>
+        <CursorPos X="6" Y="13"/>
+        <UsageCount Value="87"/>
         <Loaded Value="True"/>
       </Unit10>
       <Unit11>
@@ -93,34 +90,33 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1059"/>
         <CursorPos Y="1300"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit11>
       <Unit12>
         <Filename Value="X:\source\XDPW_Main.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="88"/>
         <CursorPos X="5" Y="126"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="15"/>
       </Unit12>
       <Unit13>
         <Filename Value="X:\units\SysUtils.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="126"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit13>
       <Unit14>
         <Filename Value="X:\units\System.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="193"/>
         <CursorPos Y="215"/>
-        <UsageCount Value="11"/>
+        <UsageCount Value="10"/>
       </Unit14>
       <Unit15>
         <Filename Value="storeext.inc"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="10"/>
-        <CursorPos X="12" Y="6"/>
-        <UsageCount Value="70"/>
+        <EditorIndex Value="11"/>
+        <CursorPos X="33" Y="12"/>
+        <UsageCount Value="71"/>
         <Loaded Value="True"/>
       </Unit15>
       <Unit16>
@@ -128,22 +124,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="80"/>
         <CursorPos X="61" Y="104"/>
-        <UsageCount Value="3"/>
+        <UsageCount Value="2"/>
       </Unit16>
       <Unit17>
         <Filename Value="file_handling.pas"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="31"/>
         <CursorPos X="27" Y="47"/>
-        <UsageCount Value="48"/>
+        <UsageCount Value="49"/>
         <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="lc.lpr"/>
-        <EditorIndex Value="4"/>
-        <TopLine Value="268"/>
-        <CursorPos X="28" Y="297"/>
-        <UsageCount Value="46"/>
+        <EditorIndex Value="5"/>
+        <CursorPos Y="90"/>
+        <UsageCount Value="47"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -151,15 +146,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="1162"/>
         <CursorPos X="11" Y="1183"/>
-        <UsageCount Value="4"/>
+        <UsageCount Value="3"/>
       </Unit19>
       <Unit20>
         <Filename Value="n_perform.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="N_perform"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="41" Y="8"/>
-        <UsageCount Value="54"/>
+        <EditorIndex Value="2"/>
+        <CursorPos Y="4"/>
+        <UsageCount Value="57"/>
         <Loaded Value="True"/>
       </Unit20>
       <Unit21>
@@ -175,149 +170,154 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos Y="88"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="44"/>
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit22>
       <Unit23>
         <Filename Value="n_utility.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="N_utility"/>
-        <EditorIndex Value="3"/>
-        <TopLine Value="163"/>
-        <CursorPos X="19" Y="172"/>
-        <UsageCount Value="41"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="4"/>
+        <CursorPos Y="16"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit23>
       <Unit24>
         <Filename Value="n_static.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="N_Static"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="75"/>
-        <CursorPos X="25" Y="93"/>
-        <UsageCount Value="38"/>
+        <EditorIndex Value="3"/>
+        <UsageCount Value="41"/>
         <Loaded Value="True"/>
       </Unit24>
+      <Unit25>
+        <Filename Value="NoisyPrefixCode.inc"/>
+        <IsPartOfProject Value="True"/>
+        <EditorIndex Value="1"/>
+        <CursorPos X="22" Y="4"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+      </Unit25>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="n_utility.pas"/>
-        <Caret Line="262" TopLine="259"/>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="125" TopLine="101"/>
       </Position1>
       <Position2>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="10" Column="13"/>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="2" Column="18"/>
       </Position2>
       <Position3>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="25" Column="26"/>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="92" Column="27" TopLine="65"/>
       </Position3>
       <Position4>
-        <Filename Value="n_perform.pas"/>
-        <Caret Line="191" Column="54" TopLine="172"/>
+        <Filename Value="Buffer_Test.lpr"/>
+        <Caret Line="13" Column="6"/>
       </Position4>
       <Position5>
-        <Filename Value="n_perform.pas"/>
-        <Caret Line="200" Column="15" TopLine="86"/>
+        <Filename Value="n_static.pas"/>
+        <Caret Line="2"/>
       </Position5>
       <Position6>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="17" Column="6" TopLine="11"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="3" Column="33"/>
       </Position6>
       <Position7>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="15" Column="23"/>
+        <Filename Value="n_utility.pas"/>
       </Position7>
       <Position8>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="82" Column="47" TopLine="60"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="49" Column="27" TopLine="14"/>
       </Position8>
       <Position9>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="28" Column="15" TopLine="3"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="167" Column="20" TopLine="132"/>
       </Position9>
       <Position10>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="110" Column="30" TopLine="99"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="184" Column="19" TopLine="149"/>
       </Position10>
       <Position11>
-        <Filename Value="n_static.pas"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="200" Column="43" TopLine="165"/>
       </Position11>
       <Position12>
         <Filename Value="n_utility.pas"/>
-        <Caret Line="98" Column="47" TopLine="105"/>
+        <Caret Line="203" Column="24" TopLine="168"/>
       </Position12>
       <Position13>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="141" TopLine="108"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="233" Column="45" TopLine="198"/>
       </Position13>
       <Position14>
         <Filename Value="n_utility.pas"/>
-        <Caret Line="98" Column="47" TopLine="105"/>
+        <Caret Line="250" Column="14" TopLine="228"/>
       </Position14>
       <Position15>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="163" Column="55" TopLine="148"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="263" Column="29" TopLine="228"/>
       </Position15>
       <Position16>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="119" Column="78" TopLine="71"/>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="2" Column="18"/>
       </Position16>
       <Position17>
         <Filename Value="n_static.pas"/>
-        <Caret Line="96" Column="41" TopLine="76"/>
+        <Caret Line="120" Column="23" TopLine="76"/>
       </Position17>
       <Position18>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="97" Column="24" TopLine="81"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="42" Column="10" TopLine="21"/>
       </Position18>
       <Position19>
         <Filename Value="n_static.pas"/>
-        <Caret Line="120" Column="40" TopLine="105"/>
+        <Caret Line="120" Column="23" TopLine="76"/>
       </Position19>
       <Position20>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="123" Column="58" TopLine="108"/>
+        <Filename Value="n_perform.pas"/>
       </Position20>
       <Position21>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="130" Column="37" TopLine="115"/>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="4" Column="20"/>
       </Position21>
       <Position22>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="144" Column="24" TopLine="120"/>
+        <Filename Value="n_utility.pas"/>
+        <Caret Line="42" Column="10" TopLine="21"/>
       </Position22>
       <Position23>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="160" Column="26" TopLine="145"/>
+        <Filename Value="lc.lpr"/>
+        <Caret Line="95" Column="30" TopLine="65"/>
       </Position23>
       <Position24>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="144" Column="24" TopLine="14"/>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="79" Column="28" TopLine="55"/>
       </Position24>
       <Position25>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="162" Column="54" TopLine="146"/>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="80" Column="28" TopLine="43"/>
       </Position25>
       <Position26>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="145" Column="47" TopLine="130"/>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="74" TopLine="40"/>
       </Position26>
       <Position27>
-        <Filename Value="n_static.pas"/>
-        <Caret Line="151" Column="55" TopLine="133"/>
+        <Filename Value="noisy.pas"/>
+        <Caret Line="14" Column="14"/>
       </Position27>
       <Position28>
         <Filename Value="noisy.pas"/>
-        <Caret Line="127" Column="14" TopLine="83"/>
+        <Caret Line="185" Column="21" TopLine="164"/>
       </Position28>
       <Position29>
-        <Filename Value="n_utility.pas"/>
-        <Caret TopLine="88"/>
+        <Filename Value="n_static.pas"/>
+        <Caret Line="120" Column="23" TopLine="100"/>
       </Position29>
       <Position30>
         <Filename Value="noisy.pas"/>
-        <Caret Line="131" Column="11" TopLine="126"/>
+        <Caret Line="185" Column="8" TopLine="164"/>
       </Position30>
     </JumpHistory>
     <RunParams>

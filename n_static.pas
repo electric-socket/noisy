@@ -2,6 +2,7 @@
 // 2021-12-13 Paul Robinson
 // part of the Noisy program
 
+{$I NoisyPrefixCode.inc}
 unit N_Static;
 
 {$mode ObjFPC}{$H+}
@@ -159,7 +160,9 @@ begin
 //  *.       write the noisy header
              For I := 1 to 6 do
                 if Settings.FillTop[I]<>'' then
-                   Write(OutFile,Settings.FillTop[I]);
+                   Write(OutFile,StartComment[Settings.TopType],
+                                 Settings.FillTop[I],
+                                 EndComment[Settings.TopType]);
 
 
 
@@ -186,6 +189,8 @@ begin
 //  *.      report file was previously processed on top.
 //  *.      but was processed on bottom
 //  *.  close file
+             Close(OutFile);
+             Close(InFile);
 //  *.  clear flags
          END;
          P := P^.next

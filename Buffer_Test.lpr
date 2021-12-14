@@ -10,7 +10,7 @@ const
      MAXFOLDERS = 10;
 
 type
-     Int64 = Int64;
+
      Pcharacter = ^Char;
 
      TBuffer = record
