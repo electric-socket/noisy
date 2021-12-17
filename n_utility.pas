@@ -131,16 +131,18 @@ var
   StartTime,               // for elapsed time
   EndTime: SystemTime;
 
-  Param1,    // used to read command linme parameters
-  Param2,
-  CommandFile,  // file to read commands
-  TextPrefix,   // to balance help stmts
-  LineContinuation,  // separate explanation from command
-  TimeString: String; // To display date and time
-  H,M,S,MS,           // timing values
-  FM,                 // saved filemode
-  IR,                 // saved IOResult
-  LineCount:Integer;  // number of lines
+
+  // used to read command line params
+  Param: Array[1..100] of UnicodeString;
+  CommandFile,  //< file to read commands
+  ParamUC: UnicodeString;  //< Current param in UPPER case
+
+
+  TimeString: String; //< To display date and time
+  H,M,S,MS,           //< timing values
+  FM,                 //< saved filemode
+  IR,                 //< saved IOResult
+  LineCount:Integer;  //< number of lines
 
 
   Dot: char ='.';  // your systwm's separator for extension
@@ -156,15 +158,11 @@ var
 var
 // Extensions
 
-
   E: UnicodeString;
   totalext: integer = 0;
 
-
-
-
-    Take,               //< Extensions
-    TakeWork: ExtP;
+  Take,               //< Extensions
+  TakeWork: ExtP;
 
 type
     FilesP = ^TheFiles;  //< File Descriptor pointer
@@ -188,6 +186,7 @@ Var
     FileChain,          //< Files
     FileChainLast: FilesP;
     Rslt: TUnicodeSearchRec;   //< Directory search
+    PC,                        //< saved ParamCount
     Attr,                      //< file attributes
     TotalFileCount,            //< all files found
     GlobalFileCount: Integer;  //< all files kept
@@ -205,16 +204,8 @@ const
         // Date/Time display format
     DateFormatChars = 'yyyy"-"mm"-"dd hh":"nn":"ss';
 
-Type
-    MacroP = ^MacroTable;
-    MacroTable = Record
-        Key,
-        Value: UnicodeString;
-        Next: MacroP;
-    end;
-Var
-    MacroStart,
-    MacroWalker: MacroP;
+
+
 
 Function CTS(Const CTime:SystemTime): AnsiString;  //< Create Time String
 Function Radix( N:LargeInt; theRadix:LargeInt):string; //< convert numbers
@@ -222,7 +213,8 @@ function I2(N:Word):string;               //< insert leading 0 if N<10
 // select correct tense when number is single or plural
 Function Plural(N:LargeInt; Plu:String; Sng: String): string;
 // convert a file name to its component parts
-procedure SplitPath(const Path: UnicodeString; var Folder, Name, Ext: UnicodeString);
+procedure SplitPath(const Path: UnicodeString;
+                    var Folder, Name, Ext: UnicodeString);
 Procedure GetExt(const Path: UnicodeString; var Ext: UnicodeString);
 
 implementation
@@ -243,8 +235,6 @@ end;
 
 
 
- // procedure GetLocalTime(var SystemTime: TSYSTEMTIME) ;
- //           external 'kernel32.dll'; // name 'GetLocalTime';
 
   // Paul Robinson 2020-11-08 - My own version of
   // InttoStr, but works for any radix, e.g. 2, 8, 10, 16,
@@ -329,7 +319,7 @@ begin
 end;
 
 // does what splitpath does but just gets extension (in lower case)
-// the dot before the extension is dicarded
+// the dot before the extension is discarded
 Procedure GetExt(const Path: UnicodeString; var Ext: UnicodeString);
 var
     DotPos,  i: Integer;

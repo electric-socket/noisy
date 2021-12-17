@@ -22,13 +22,31 @@ Function FindExt(Const TheExtension:UnicodeString): Boolean;
 
 implementation
 
-// This inserts an extension into the lisr.
-// Note: once take is initialized, takework would always
-// point to the last entry in the list. I'm doing it this
-// way for didactic i.e. educational, purposes. However, if
-// the list has both added to and and searches then this
-// method *must* be used instead unless both a top pointer,
-// bottom pointer, and a work pointer are used
+{ This inserts an extension into the list.
+  Note: once take is initialized, takework would always
+  point to the last entry in the list. I'm doing it this
+  way for didactic i.e. educational, purposes. However, if
+  the list has both added to and and searches then this
+  method *must* be used instead unless a top pointer,
+  bottom pointer, and a work pointer are used. Why do many?
+  1. Top Pointer - when neding to searh the list, this is
+     always the first entry.
+  2, Bottom Pointer - when adding new in an unsorted list,
+     this is the last entry in the list. In a double-linked
+     (forward and backward) this is the last entry.
+  3. Work Pointer - Thid either starts with the top pointer
+     (for searches top to bottom) or with the bottgom pointer
+     (for searches bottom to top), then follows the chain until
+     the entry is found or we run out of records. This can be
+     in one of two ways: if you search an unsorted list, you
+     reach the end; in a single-linked sorted list, you either
+     find an item higher than your current one, or you run out
+     of records. In a double-linked sorted list, you either are
+     higher than an item found, but lower than the next one (or
+     there is no next one) when traversing from top to bottom,
+     or is lower than an item found, but higher than the
+     previous one (or there is no previous one).
+  }
 Procedure AddExt(Const TheExtension:UnicodeString);
 begin
    If take = nil then

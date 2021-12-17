@@ -2,4 +2,5 @@
 {$UNDEF BITS32}
 {$UNDEF AUTOVersion}
 {$DEFINE Testing}
+{$DEFINE Console}
 

@@ -33,7 +33,7 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <Units Count="8">
+    <Units Count="11">
       <Unit0>
         <Filename Value="noisy.pas"/>
         <IsPartOfProject Value="True"/>
@@ -70,6 +70,21 @@
         <Filename Value="NoisyPrefixCode.inc"/>
         <IsPartOfProject Value="True"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="n_version.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="N_Version"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="n_help.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="N_Help"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="noisyadd.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="NoisyAdd"/>
+      </Unit10>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
