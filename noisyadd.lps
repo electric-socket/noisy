@@ -10,8 +10,8 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="NoisyAdd"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="149"/>
-        <CursorPos X="64" Y="175"/>
+        <TopLine Value="326"/>
+        <CursorPos X="65" Y="359"/>
         <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit>
@@ -231,10 +231,6 @@
       </Position>
       <Position>
         <Filename Value="n_utility.pas"/>
-        <Caret Line="222" TopLine="291"/>
-      </Position>
-      <Position>
-        <Filename Value="n_utility.pas"/>
       </Position>
       <Position>
         <Filename Value="n_utility.pas"/>
@@ -247,6 +243,10 @@
       <Position>
         <Filename Value="noisyadd.pas"/>
         <Caret Line="335" Column="24" TopLine="285"/>
+      </Position>
+      <Position>
+        <Filename Value="noisyadd.pas"/>
+        <Caret Line="175" Column="64" TopLine="149"/>
       </Position>
     </JumpHistory>
     <RunParams>

@@ -341,6 +341,8 @@ Begin
 end;
 
 begin
+      TS.Year:=0; EndTS.Month:= 0 ;
+      //< silence compiler warning about uninitialized variables
       GetLocalTime(TS);
       TimeStamp := CTS(TS);
       Banner;
@@ -353,5 +355,9 @@ begin
       Writeln('Completed ',TimeStamp);
       writeln('Processed ',GlobalFileCount,' files.');
       Elapsed(TS,EndTS);
+      writeln;
+      writeln('If you have run this by mistake, run NoisyDel ');
+      writeln('to reverse any changes.');
+      
 
 end.
