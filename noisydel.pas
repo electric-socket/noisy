@@ -41,7 +41,6 @@ Const
 Var
     IR,
     GlobalFileCount,
-    J,
     i: integer;
 
     Infile,
@@ -205,7 +204,8 @@ end;
                      while not eof(infile) do
                      begin
                          Readln(Infile, Line); // delete the "noisy" lines
-                         if Copy(Line,1,7) <> '{.Noisy' then
+                         if Copy(LowerCase(Line),1,7) <>  //< ignore case
+                              '{.noisy' then
                              writeln(outfile, Line);
                      end;
                      // it worked, save it
@@ -225,9 +225,10 @@ end;
 Procedure Banner;
 begin
 
-   Writeln('NoisyAdd - Add compiler flags to Pascal source files');
-   writeln('Preparing to mark all .pas. .pp, and .inc files in this ');
-   Writeln('directory and all subdirectories.');
+   Writeln('NoisyDel - Remove compiler flags from Pascal source files');
+   Writeln('previously processed by NoisyAdd.');
+   writeln('Preparing to remove marks from all .pas. .pp, and ');
+   Writeln('.inc files in this directory and all subdirectories.');
    writeln('Started: ',TimeStamp,', please wait...');
 
 
@@ -297,6 +298,8 @@ Begin
 end;
 
 begin
+      TS.Year:=0; EndTS.Month:= 0 ;
+      //< silence compiler warning about uninitialized variables
       GetLocalTime(TS);
       TimeStamp := CTS(TS);
       Banner;
