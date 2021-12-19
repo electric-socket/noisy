@@ -32,17 +32,17 @@ const
 
     SlashChar = '\'; // Your system's directory separator,
                      // \ on windows; / on unix, linux, etc
-    NoisyPrefix = '{';  // so noisy doesn't trip on iyself
+
 
 type
 {$IFDEF BITS32}
     LargeInt = Integer;
 {$ELSE}
-    {$IFDEF BITS64}
+{$IFDEF BITS64}
     LargeInt = Int64;
-    {$ELSE}
-        {$FATAL Must define BITS32 or BITS64}|
-    {$ENDIF}
+{$ELSE}
+{$FATAL Must define BITS32 or BITS64}|
+{$ENDIF}
 {$ENDIF}
      TBuffer = record
          InFile,                  //<the input file

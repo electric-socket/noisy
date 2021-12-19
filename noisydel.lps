@@ -8,7 +8,6 @@
       <Unit>
         <Filename Value="noisydel.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="95"/>
         <CursorPos X="33" Y="116"/>
         <UsageCount Value="21"/>
@@ -29,6 +28,15 @@
         <TopLine Value="155"/>
         <CursorPos X="67" Y="178"/>
         <UsageCount Value="10"/>
+      </Unit>
+      <Unit>
+        <Filename Value="..\OMSI\PASMAT.PAS"/>
+        <UnitName Value="Pasmat"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="64"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit>
     </Units>
     <JumpHistory HistoryIndex="5">
