@@ -1,11 +1,8 @@
 {$I NoisyPrefixCode.inc}
 {$ifdef mswindows}{$apptype console}{$endif}
 Program NoisyAdd;
-// Simple, quick program to add prefix code at the beginning of every
-// Pascal source file in a particular folder and all subfolder, and
-// suffix code, at the end of the file. This program is tailored for
-// Pascal sources, but the idea could be used with files for any
-// programming language.
+// Simple, quick program to add prefix code at the beginning of a
+// program, and suffix code, at the end of the program
 //
 // The compiler does look beyond the last period, so appending
 // lines to a file will work
@@ -167,7 +164,15 @@ begin
    Result := Result+ IntToStr(CTime.Second);
 end;
 
-
+Function ShowPlural(N:Int64; Plu:String; Sng: String): string;
+Var
+   s:String;
+Begin
+     If n<>1 Then
+        Result:= S+ Plu
+     Else
+        Result := S + Sng;
+End;
 
  
 
@@ -186,28 +191,6 @@ begin
     Result := S;
 end;
 
-Function Plural(N:Integer; Plu:String; Sng: String): string;
-Var
-   s:String;
-Begin
-    S := IntToStr(N);
-    S := ' '+S+' ';
-    If n<>1 Then
-        Result:= S+ Plu
-     Else
-        Result := S + Sng;
-End;  // Function Plural
-
-Function JustPlural(N:LargeInt; Plu:String; Sng: String): string;
-Begin
-
-    If n<>1 Then
-        Result:= Plu
-     Else
-        Result := Sng;
-End;  // Function Plural
-
-
 
   // Recursively scan directories
   Procedure ScanFiles(
@@ -215,10 +198,6 @@ End;  // Function Plural
   var
      Rslt: TUnicodeSearchRec;    //< since this proc is recursive,
                                  //< this must be local
-
-      J,          //< Loop counter for # of lines inserted
-      i,          //< Loop counter for # of extensions processed
-
      LineCount: Integer;
      FullName,     //< Full name of input file
      Backup,       //< Name of backup file
@@ -255,6 +234,16 @@ End;  // Function Plural
 
       // Open the directory and get first file
       // this will probably be . or ..
+      if (verbose  and  Verbose_CountDirs)=1  or
+         (verbose  and  Verbose_ShowDirs_=1 then
+      begin
+         IF (verbose  and  Verbose_CountDirs)=1 THEN
+             Write(Commaa(DirectoryCount):10,' Director',
+             Plural(DirectoryCount,'ies','y'),' ');
+          f ((verbose and Verbose_ShowDirs)=1)  then
+             Write(Prefix);
+          Writeln;
+      end;
       If FindFirst(Prefix+Path,Attr,rslt) = 0 Then
       // If there are any files, pick them
       Repeat
@@ -278,81 +267,102 @@ End;  // Function Plural
                  begin           //< We do want this one
                      FullName := Prefix+rslt.name;   //< Get the original name
                      Backup   := FullName + '.bak';  //< Get the nackup name
-                     // rename to Fullname + .bak, e.g pascal.pas.bak
-                     if FileExists(Backup) then
-                     // erase old backup
-                         If not DeleteFile(Backup) then
-                         // Error deleting previous backup
+                     if not dryrun then
+                     begin
+                         // rename to Fullname + .bak, e.g pascal.pas.bak
+                         if FileExists(Backup) then
+                         // erase old backup
+                             If not DeleteFile(Backup) then
+                             // Error deleting previous backup
+                             begin
+                                 Writeln('Unable to delete backup of "',
+                                         FullName,'" file skipped');
+                                 break;  // exit FOR I loop
+                             end;   // If file exists
+                        // If we can't rename the file to the baxkup
+                        // name, that's an error so bail out
+                         if not renameFile(FullName,backup) then
                          begin
-                              Writeln('Uname to delete backup of "',
-                                    FullName,'" file skipped');
-                              break;  // exit FOR loop
-                         end;
-                     // If we can't rename the file to the baxkup
-                     // name, that's an error so bail out
-                     if not renameFile(FullName,backup) then
-                     begin
-                        // tell them cam't backup
-                        Writeln('Unable to backup file "',
-                                FullName,'" file skipped');
-                        // bail
-                        break;  //< exit FOR loop
-                     end;
+                         // tell them cam't backup
+                             Writeln('Unable to backup file "',
+                             FullName,'" file skipped');
+                         // bail
+                             break;  //< exit FOR I loop
+                         end;    // can't rename
                      // Open the source for reading
-                     Assign(Infile,Backup);
-                     FileMode := 0; // open input file read only
-                     {$I-} Reset(Infile); {$I+}
-                     IR := IOResult;  //< Check if error
-                     if IR<>0 then    //< sorry, error
-                     begin // try to put it back
-                        putback;
-                        break;
+                         Assign(Infile,Backup);
+                         FileMode := 0; // open input file force read only
+                         {$I-} Reset(Infile); {$I+}
+                         IR := IOResult;  //< Check if error
+                         if IR<>0 then    //< sorry, error
+                         begin // try to put it back
+                             putback;
+                             break;
+                         end;
+                         // if we are here, start copying
+                         Assign(Outfile,Fullname); // name replacement
+                         {$I-} Rewrite(Outfile); {$I+}  // create replacement
+                         IR := IOResult;
+                         if IR<>0 then        // then there's an error
+                         begin // try to put it back
+                             putback;
+                             break;
+                         end;
+                         // Now we insert cvustomized message per file
+                         For J := 1 to 10 do
+                         if PrefixText[J]<>'' then // don't insert null items
+                         begin
+                             write(outfile,PrefixText[J]);
+                             Case J of
+                               1: write(outfile,Timestamp,'}');
+                               3: write(outfile,fullname,'}');
+                             end;
+                             Writeln(outfile);
+                          end;     // For, If
+                          // now we can copy the file
+                          LineCount := 0;
+                          while not eof(infile) do
+                          begin
+                              Readln(Infile, Line);
+                              Inc(LineCount);
+                              writeln(outfile, Line);
+                          end;
+
+                          // Insert Footer
+                          For J := 1 to 10 do
+                              if SuffixText[J]<>'' then // don't insert null items
+                              begin
+                                  write(outfile,SuffixText[J]);
+                                  Case J of
+                                      1: write(outfile,Timestamp,'}');
+                                      3: write(outfile,fullname,' exited }');
+                                  end;
+                                  Writeln(outfile);
+                              end;  // fore J, if
+                              Close(OutFile);     // Sve the new file
+                              Close(Infile);
                      end;
-                     // if we are here, start copying
-                     Assign(Outfile,Fullname); // name replacement
-                     {$I-} Rewrite(Outfile); {$I+}  // create replacement
-                     IR := IOResult;
-                     if IR<>0 then        // then there's an error
-                     begin // try to put it back
-                        putback;
-                        break;
-                     end;
-                     // Now we insert cvustomized message per file
-                     For J := 1 to 10 do
-                        if PrefixText[J]<>'' then // don't insert null items
-                        begin
-                            write(outfile,PrefixText[J]);
-                           Case J of
-                              1: write(outfile,Timestamp,'}');
-                              3: write(outfile,fullname,'}');
-                           end;
-                           Writeln(outfile);
-                        end;
-                     // now we can copy the file                        
-                     while not eof(infile) do
-                     begin
-                         Readln(Infile, Line);
-                         writeln(outfile, Line);
-                     end;
-                     // Insert Footer
-                     For J := 1 to 10 do
-                        if SuffixText[J]<>'' then // don't insert null items
-                        begin
-                            write(outfile,SuffixText[J]);
-                           Case J of
-                              1: write(outfile,Timestamp,'}');
-                              3: write(outfile,fullname,' exited }');
-                           end;
-                           Writeln(outfile);
-                        end;
-                     Close(OutFile);     // Sve the new file
-                     Close(Infile);
                      inc(GlobalFileCount);
-                     Write('           ',#13,globalFileCount,#13);
+                     if (Verbosity and NoCountFiles) <> 0 then
+                     begin
+                        If (Verbosity and Verbose_ShowFiles) = 0 then
+                        // Only show rolling counter if no options
+                         Write(globalFileCount:8,#8#8#8#8#8#8#8#8);
+                        else
+                           Write(Comma(GlobalFileCount):10,'. ');
+                     end;
+                     if not DryRun then
+                        If (Verbosity and Verbose_CountLines)<>0 then
+                          write(Comma(LineCount):9,' Lines: ');
+                     If (Verbosity and Verbose_ShowFiles) <> 0 then
+                        Write(Fullname);
+                     if Verbosity > NoCountGiles then
+                        Writeln;
+                      end;
                      break
                  end;  // If TheExtension
+           end;
 
-          end;
        // get the next file
        Until FindNext(rslt) <> 0;   // If, Repeat
       FindClose(rslt);
@@ -367,6 +377,18 @@ begin
    writeln('Started: ',TimeStamp,', please wait...');
 
 end;  // rocedure Banner
+
+Function Plural(N:Integer; Plu:String; Sng: String): string;
+Var
+   s:String;
+Begin
+    S := IntToStr(N);
+    S := ' '+S+' ';
+    If n<>1 Then
+        Result:= S+ Plu
+     Else
+        Result := S + Sng;
+End;  // Function Plural
 
 Procedure Elapsed(CONST StartTime,EndTime: SystemTime);
 Var
@@ -430,10 +452,7 @@ Var
     K:integer;         //< Number of command options
 begin
    if Paramcount <1 then
-   begin
-      Result := TRUE;
       Exit;            //< There aren't any
-   end;
    Errors := 0;
    For K := 1 to ParamCount do
    begin

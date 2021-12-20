@@ -1,11 +1,8 @@
 {$I NoisyPrefixCode.inc}
 {$ifdef mswindows}{$apptype console}{$endif}
 Program NoisyAdd;
-// Simple, quick program to add prefix code at the beginning of every
-// Pascal source file in a particular folder and all subfolder, and
-// suffix code, at the end of the file. This program is tailored for
-// Pascal sources, but the idea could be used with files for any
-// programming language.
+// Simple, quick program to add prefix code at the beginning of a
+// program, and suffix code, at the end of the program
 //
 // The compiler does look beyond the last period, so appending
 // lines to a file will work
@@ -167,7 +164,15 @@ begin
    Result := Result+ IntToStr(CTime.Second);
 end;
 
-
+Function ShowPlural(N:LargeInt; Plu:String; Sng: String): string;
+Var
+   s:String;
+Begin
+     If n<>1 Then
+        Result:= S+ Plu
+     Else
+        Result := S + Sng;
+End;
 
  
 
@@ -205,7 +210,7 @@ Begin
         Result:= Plu
      Else
         Result := Sng;
-End;  // Function Plural
+End;  // Function JustPlural
 
 
 
@@ -255,6 +260,16 @@ End;  // Function Plural
 
       // Open the directory and get first file
       // this will probably be . or ..
+      if ((verbosity  and  Verbose_CountDirs)=1)  or
+         ((verbosity  and  Verbose_ShowDirs)=1) then
+      begin
+         IF (verbosity  and  Verbose_CountDirs)=1 THEN
+             Write(Comma(DirectoryCount):10,' Director',
+             Plural(DirectoryCount,'ies','y'),' ');
+          If ((verbosity and Verbose_ShowDirs)=1)  then
+             Write(Prefix);
+          Writeln;
+      end;
       If FindFirst(Prefix+Path,Attr,rslt) = 0 Then
       // If there are any files, pick them
       Repeat
@@ -284,7 +299,7 @@ End;  // Function Plural
                          If not DeleteFile(Backup) then
                          // Error deleting previous backup
                          begin
-                              Writeln('Uname to delete backup of "',
+                              Writeln('Unable to delete backup of "',
                                     FullName,'" file skipped');
                               break;  // exit FOR loop
                          end;
@@ -430,10 +445,7 @@ Var
     K:integer;         //< Number of command options
 begin
    if Paramcount <1 then
-   begin
-      Result := TRUE;
       Exit;            //< There aren't any
-   end;
    Errors := 0;
    For K := 1 to ParamCount do
    begin

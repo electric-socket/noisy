@@ -6,22 +6,20 @@
     <BuildModes Active="Default"/>
     <Units>
       <Unit>
-        <Filename Value="noisyadd.pas"/>
+        <Filename Value="NoisyAddSimple.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="NoisyAdd"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="507"/>
-        <CursorPos X="22" Y="431"/>
+        <TopLine Value="392"/>
+        <CursorPos X="48" Y="340"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="noisy.pas"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="123"/>
         <CursorPos Y="173"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="N_fileopen.inc"/>
@@ -100,11 +98,10 @@
       <Unit>
         <Filename Value="n_utility.pas"/>
         <UnitName Value="N_utility"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="232"/>
         <CursorPos Y="284"/>
         <UsageCount Value="12"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="C:\lazarus\fpc\3.2.2\source\rtl\objpas\sysutils\filutilh.inc"/>
@@ -130,139 +127,53 @@
       <Unit>
         <Filename Value="backup\noisyadd.pas"/>
         <UnitName Value="NoisyAdd"/>
-        <EditorIndex Value="2"/>
-        <TopLine Value="216"/>
-        <CursorPos Y="221"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="NoisyPrefixCode.inc"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="23"/>
+        <CursorPos X="57" Y="3"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="29">
+    <JumpHistory HistoryIndex="8">
       <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Column="25"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="3" Column="23"/>
       </Position>
       <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="159" Column="22" TopLine="151"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="364" Column="27" TopLine="321"/>
       </Position>
       <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="83" TopLine="67"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="201" TopLine="174"/>
       </Position>
       <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="84" Column="22" TopLine="72"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="173" TopLine="170"/>
       </Position>
       <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="78" Column="5" TopLine="76"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="99" Column="19" TopLine="91"/>
       </Position>
       <Position>
-        <Filename Value="backup\noisyadd.pas"/>
-        <Caret Line="221" TopLine="215"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="94" Column="2" TopLine="85"/>
       </Position>
       <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="228" Column="11" TopLine="219"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="99" Column="110" TopLine="84"/>
       </Position>
       <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="98" TopLine="91"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="87" Column="29"/>
       </Position>
       <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="115" Column="8" TopLine="104"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="210" Column="19" TopLine="199"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="67" Column="36" TopLine="51"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="75" Column="45" TopLine="59"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="76" Column="20" TopLine="60"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="94" Column="40" TopLine="81"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="220" Column="34" TopLine="211"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="97" Column="22" TopLine="87"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="237" Column="11" TopLine="228"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="243" Column="24" TopLine="228"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="238" Column="48" TopLine="228"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="242" Column="14" TopLine="233"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="360" TopLine="355"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="242" Column="14" TopLine="234"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="205" TopLine="187"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="207" TopLine="198"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="212" Column="35" TopLine="200"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="265" Column="12" TopLine="256"/>
-      </Position>
-      <Position>
-        <Filename Value="backup\noisyadd.pas"/>
-        <Caret Line="221" TopLine="216"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="151" Column="23" TopLine="142"/>
-      </Position>
-      <Position>
-        <Filename Value="noisyadd.pas"/>
-        <Caret Line="363" Column="5" TopLine="249"/>
+        <Filename Value="NoisyAddSimple.pas"/>
+        <Caret Line="341" Column="4" TopLine="331"/>
       </Position>
     </JumpHistory>
     <RunParams>

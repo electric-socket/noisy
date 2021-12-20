@@ -6,11 +6,11 @@
     <BuildModes Active="Default"/>
     <Units>
       <Unit>
-        <Filename Value="noisydel.pas"/>
+        <Filename Value="NoisyDelSimple.pas"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="212"/>
-        <CursorPos X="60" Y="227"/>
+        <CursorPos X="35" Y="228"/>
         <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit>
@@ -38,40 +38,7 @@
         <UsageCount Value="10"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="7">
-      <Position>
-        <Filename Value="noisydel.pas"/>
-        <Caret Line="208" Column="58" TopLine="189"/>
-      </Position>
-      <Position>
-        <Filename Value="noisydel.pas"/>
-        <Caret Line="160" Column="33" TopLine="145"/>
-      </Position>
-      <Position>
-        <Filename Value="noisydel.pas"/>
-        <Caret Line="116" Column="36" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="noisydel.pas"/>
-        <Caret Line="115" Column="34" TopLine="89"/>
-      </Position>
-      <Position>
-        <Filename Value="noisydel.pas"/>
-        <Caret Line="301" Column="37" TopLine="263"/>
-      </Position>
-      <Position>
-        <Filename Value="noisydel.pas"/>
-        <Caret Line="115" Column="34" TopLine="88"/>
-      </Position>
-      <Position>
-        <Filename Value="noisydel.pas"/>
-        <Caret Line="116" Column="33" TopLine="95"/>
-      </Position>
-      <Position>
-        <Filename Value="noisydel.pas"/>
-        <Caret Line="6"/>
-      </Position>
-    </JumpHistory>
+    <JumpHistory HistoryIndex="-1"/>
     <RunParams>
       <FormatVersion Value="2"/>
       <Modes ActiveMode=""/>

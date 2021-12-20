@@ -1,5 +1,5 @@
 {$ifdef mswindows}{$apptype console}{$endif}
-Program noisydel;
+Program NoisyDelSimple;
 // Simple, quick program to remove prefix code at the beginning of a
 // program, and remove suffix code from the end of the program
 //
@@ -223,8 +223,8 @@ end;
 Procedure Banner;
 begin
 
-   Writeln('NoisyDel - Remove compiler flags from Pascal source files');
-   Writeln('previously processed by Noisy or NoisyAddSimple.');
+   Writeln('NoisyDelSimple - Remove compiler flags from Pascal source files');
+   Writeln('previously processed by Noisy or NoisyAdd.');
    writeln('Preparing to remove "Noisy" mmarks from all .pas. .pp, and ');
    Writeln('.inc files in this directory and all subdirectories.');
    writeln('Started: ',TimeStamp,', please wait...');
