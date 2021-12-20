@@ -290,7 +290,7 @@ Begin
     If M >0 then
         Timestring := TimeString + Plural(M,'minutes','minute')+' ';
     if timestring <> '' then
-        Timestring := Timestring +' and';
+        Timestring := Timestring +' and ';
     Timestring := TimeString + IntToStr(S)+'.' + IntToStr(MS)+' seconds.';
     Writeln('Elapsed time: ',TimeString)
 end;

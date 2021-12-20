@@ -1,6 +1,6 @@
 {$I NoisyPrefixCode.inc}
 {$ifdef mswindows}{$apptype console}{$endif}
-Program NoisyAdd;
+Program NoisyNote;
 // Simple, quick program to add prefix code at the beginning of every
 // Pascal source file in a particular folder and all subfolder, and
 // suffix code, at the end of the file. This program is tailored for
@@ -90,14 +90,10 @@ Type
 {$ENDIF}
 Var
     // options
-    Verbosity: integer =0;   //< How Noisy we are when running
-    DryRun: Boolean = false; //< show but don't do if true
-
 
     IR,               //< IOResult save
     GlobalFileCount,  //< Files processed for running count
-    DirectoryCount,
-    DirCount:Integer; //< Directories Found
+    DirectoryCount:Integer; //< Directories Found
 
     Infile,           //< Source file
     Outfile: text;    //< Output File
@@ -171,21 +167,6 @@ end;
 
  
 
-Function Comma(K:LargeInt):string;
-var
-   i:integer;
-   s: string;
-begin
-    S := IntToStr(K);
-    i := length(s)-3;
-    while i>0 do
-    begin
-        S := Copy(S,1,i) +','+copy(s,i+1,length(s));
-        I := I-3;
-    end;
-    Result := S;
-end;
-
 Function Plural(N:Integer; Plu:String; Sng: String): string;
 Var
    s:String;
@@ -197,16 +178,6 @@ Begin
      Else
         Result := S + Sng;
 End;  // Function Plural
-
-Function JustPlural(N:LargeInt; Plu:String; Sng: String): string;
-Begin
-
-    If n<>1 Then
-        Result:= Plu
-     Else
-        Result := Sng;
-End;  // Function Plural
-
 
 
   // Recursively scan directories
@@ -348,7 +319,7 @@ End;  // Function Plural
                      Close(OutFile);     // Sve the new file
                      Close(Infile);
                      inc(GlobalFileCount);
-                     Write('           ',#13,globalFileCount,#13);
+                     Writeln(GlobalFileCount:5,' ',FullName);
                      break
                  end;  // If TheExtension
 
@@ -361,9 +332,12 @@ End;  // Function Plural
 Procedure Banner;
 begin
 
-   Writeln('NoisyAdd - Add compiler flags to Pascal source files');
+   Writeln('NoisyNote - Add compiler flags to Pascal source files');
    writeln('Preparing to mark all .pas. .pp, and .inc files in this ');
    Writeln('directory and all subdirectories.');
+   Writeln;
+   writeln('If you have run this by mistake, run NoisyDelSimple ');
+   writeln('or Noisy to reverse any changes.');
    writeln('Started: ',TimeStamp,', please wait...');
 
 end;  // rocedure Banner
@@ -417,120 +391,6 @@ Begin
     Writeln('Elapsed time: ',TimeString)
 end;  // Procedure Elapsed
 
-// read any command-line options
-FUNCTION GetOpt:Boolean;
-Var
-
-    Arg,               //< Current command-line argument/parameter
-    ArgUC:AnsiString;  //< Upper case version of Arg
-    OK: Boolean;       //< Number processed OK
-    ArgStart,          //< Point where parameter starts
-    DoVerbose,         //< Position of verbose argument
-    Errors,            //< Number of errors detected
-    K:integer;         //< Number of command options
-begin
-   if Paramcount <1 then
-   begin
-      Result := TRUE;
-      Exit;            //< There aren't any
-   end;
-   Errors := 0;
-   For K := 1 to ParamCount do
-   begin
-       ArgStart:= 0;
-       OK := FALSE;
-       Arg := ParamStr(K);
-       if (Copy(Arg,1,1) = '/') or (Copy(Arg,1,1) = '-') then
-           ArgStart := 2
-       else if (Copy(Arg,1,2) = '--') then
-           ArgStart := 3;
-       if ArgStart<>0 then
-       begin
-          ArgUC := UpperCase(Copy(Arg,ArgStart,Length(Arg)-ArgStart));
-          Arg := Copy(Arg,ArgStart,Length(Arg)-ArgStart); // Trim command
-          Case ArgUC[1] of
-             'V': Begin
-                      if Length(Arg)=0 then
-                         begin
-                             Writeln('Version ', Version);
-                             Inc(Errors); // so program quits
-                             Break;
-                         end
-                      else
-                      begin
-                          Verbosity := 0;
-                          if Arg[1]=':' then
-                             Arg := Copy(Arg,2,Length(Arg)-1); // discard colon
-                          if Arg[1] in ['0'..'9'] then
-                          Begin
-                              While Arg[1] in ['0'..'9'] do
-                              begin  // eat digits to retrieve number
-                                  Ok := True;
-                                  Verbosity := Verbosity*10+Ord(Arg[1])-Zero;
-                                  Arg := Copy(Arg,2,Length(Arg)-1);
-                                  if arg = '' then break;
-                              end;
-                              if Verbosity = Verbose_CountLines then
-                                  Verbosity :=  Verbosity + Verbose_ShowFiles;
-                              if OK then Continue;   // exit to FOR loop
-                          end;
-                      end;
-                      Writeln('?Invald verbosity argument: ',Arg);
-                      Inc(Errors); // so program quits
-                  End;  // Case 'V'
-                'H','?':
-                 begin
-                     Writeln('Usage ', ParamStr(0),' [argument ... ]');
-                     Writeln('  Where "argument" is: ');
-                     writeln('    /h -h or --h -- show this help *');
-                     writeln('    /v -v or --v -- show version number *');
-                     writeln('    /v<n> -- set verbosity level');
-                     writeln('    Where <n> is: ');
-                     writeln('       0 - Show running count of files');
-                     writeln('      ',Verbose_NoCountFiles:2,
-                                     ' - Don''t show running count');
-                     writeln('      ',Verbose_ShowFiles:2,
-                                     ' - Show file name being processed');
-                     writeln('      ',Verbose_CountLines:2,
-                                     '  - Show # of lines in file (implies ',
-                                          Verbose_ShowFiles,')');
-                     writeln('      ',Verbose_CountDirs:2,
-                                     ' - Count directories being processed');
-                     writeln('      ',Verbose_ShowDirs:2,
-                                     ' - Show directory name being processed');
-                     writeln('      Add values to combine results, e.g.');
-                     writeln('       /v1 -- be quiet; /v10 -- show file ',
-                                     'and directory names');
-                     writeln('    /dr, -dr or --dryrun -- show what files ',
-                                  'would be processed but take no action *');
-
-                      Writeln;
-                      Writeln('* means program will exit without action');
-                      Writeln('Arguments are not case sensitive');
-                      Inc(Errors); // so program quits
-                  end;
-             'D': Begin
-                      IF (ArgUC ='DR') or (ArgUC ='DRYRUN') then
-                        begin
-                            DryRun := TRUE;
-                            Continue;
-                        end
-                      ELSE
-                      Begin
-                          Writeln('?Invald argument: ',Arg);
-                          Inc(Errors);
-                      end;
-                    end
-
-          else  // CASE
-              Writeln('?Invalid parameter: ',Arg, ' try /h or -h for info.');
-               end;
-              Inc(Errors); // so program quits
-          end; // CASE
-       end;
-   Result := Errors = 0;
-   exit;
-end;
 
 begin   // .Main.
       TS.Year:=0; EndTS.Month:= 0 ;      //< silence compiler warning
@@ -538,12 +398,7 @@ begin   // .Main.
       GetLocalTime(TS);
       TimeStamp := CTS(TS);
       Banner;
-      if not GetOpt then halt(1);
-      if not dryrun then
-      begin
-          writeln('If you have run this by mistake, run NoisyDel ');
-          writeln('to reverse any changes.');
-      end;
+
       writeln;
       ScanFiles(''); // Start Here
 
